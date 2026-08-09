@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Me - Shashen Nethmika</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        :root {
+            --dark: #0f2b5c;
+            --blue: #2563eb;
+            --light: #3b82f6;
+            --cyan: #06b6d4;
+            --bg: #f8fafc;
+            --cardbg: #ffffff;
+            --text: #1e293b;
+            --muted: #64748b;
+            --textlight: #94a3b8;
+            --border: #e2e8f0;
+            --shadow1: 0 2px 8px rgba(0, 0, 0, 0.04);
+            --shadow2: 0 8px 24px rgba(15, 43, 92, 0.08);
+            --shadow3: 0 16px 32px rgba(15, 43, 92, 0.12);
+            --r1: 8px;
+            --r2: 14px;
+            --r3: 20px;
+            --transition: all 0.3s ease-in-out;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Nav Bar Styles */
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: #0f2b5c;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 24px rgba(15, 43, 92, 0.08);
+        }
+
+        .topbar {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 14px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            text-decoration: none;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: -0.5px;
+        }
+
+        .dot {
+            color: var(--cyan);
+        }
+
+        .menu {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .item {
+            color: #e2e8f0;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            padding: 8px 16px;
+            border-radius: var(--r1);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition);
+        }
+
+        .item i {
+            font-size: 0.85rem;
+            color: #94a3b8;
+            transition: var(--transition);
+        }
+
+        .item:hover {
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.12);
+        }
+
+        .item:hover i {
+            color: var(--cyan);
+        }
+
+        .navbtn {
+            background: var(--blue);
+            color: #ffffff !important;
+            font-weight: 600;
+        }
+
+        .navbtn i {
+            color: #ffffff !important;
+        }
+
+        .navbtn:hover {
+            background: #1d4ed8;
+            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.4);
+            transform: translateY(-1px);
+        }
+
+        .item.active {
+            background: var(--blue);
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        /* Main Content Area */
+        .container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        /* Section Card Styles */
+        .section {
+            background: #ffffff;
+            border-radius: 14px;
+            padding: 36px;
+            margin-bottom: 35px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 8px 24px rgba(15, 43, 92, 0.08);
+            scroll-margin-top: 90px;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .sechead {
+            margin-bottom: 28px;
+        }
+
+        .sectitle {
+            color: #0f2b5c;
+            font-size: 1.5rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .sectitle i {
+            color: var(--blue);
+            font-size: 1.3rem;
+        }
+
+        .line {
+            height: 4px;
+            width: 60px;
+            background: linear-gradient(90deg, var(--blue), var(--cyan));
+            border-radius: 2px;
+            margin-top: 8px;
+        }
+
+        .secsub {
+            color: var(--muted);
+            font-size: 0.95rem;
+            margin-top: 6px;
+        }
+
+        /* Button Styles */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 22px;
+            border-radius: var(--r1);
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+        }
+
+        .primary {
+            background: var(--blue);
+            color: #ffffff;
+            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3);
+        }
+
+        .primary:hover {
+            background: #1d4ed8;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(37, 99, 235, 0.4);
+        }
+
+        .contactbox {
+            max-width: 650px;
+            margin: 0 auto;
+        }
+
+        /* Contact Form Styles */
+        .form {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .field {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .field label {
+            font-weight: 600;
+            color: #0f2b5c;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .field label i {
+            color: var(--blue);
+        }
+
+        .field input,
+        .field textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid var(--border);
+            border-radius: var(--r1);
+            background: var(--bg);
+            font-size: 0.92rem;
+            color: var(--text);
+            transition: var(--transition);
+        }
+
+        .field input:focus,
+        .field textarea:focus {
+            outline: none;
+            background: #ffffff;
+            border-color: var(--blue);
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+        }
+
+        .sendbtn {
+            width: 100%;
+            justify-content: center;
+            padding: 13px;
+            font-size: 0.95rem;
+            background: linear-gradient(135deg, var(--dark), var(--blue));
+            color: #ffffff;
+            border-radius: var(--r1);
+            margin-top: 8px;
+            box-shadow: 0 4px 14px rgba(15, 43, 92, 0.25);
+        }
+
+        .sendbtn:hover {
+            box-shadow: 0 6px 18px rgba(15, 43, 92, 0.35);
+            transform: translateY(-2px);
+        }
+
+        .center {
+            text-align: center;
+        }
+
+        .centerline {
+            margin: 8px auto 0 auto;
+        }
+
+        .topbox {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            margin-bottom: 12px;
+        }
+
+        .backbtn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--dark);
+            background: #ffffff;
+            border: 1px solid var(--border);
+            padding: 8px 18px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.85rem;
+            box-shadow: var(--shadow1);
+            transition: var(--transition);
+        }
+
+        .backbtn i {
+            color: var(--blue);
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .backbtn:hover {
+            color: var(--blue);
+            border-color: var(--blue);
+            background: rgba(37, 99, 235, 0.05);
+            transform: translateX(-4px);
+            box-shadow: var(--shadow2);
+        }
+
+        .backbtn:hover i {
+            transform: translateX(-2px);
+        }
+
+        .pagetitle {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #0f2b5c;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .pagetitle i {
+            color: var(--blue);
+        }
+
+        .cgrid {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 30px;
+            margin-top: 25px;
+        }
+
+        .infocards {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .infocard {
+            background: var(--bg);
+            padding: 18px;
+            border-radius: var(--r2);
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            transition: var(--transition);
+        }
+
+        .infocard:hover {
+            border-color: var(--light);
+            transform: translateY(-2px);
+        }
+
+        .infoicon {
+            width: 44px;
+            height: 44px;
+            border-radius: 10px;
+            background: rgba(37, 99, 235, 0.1);
+            color: var(--blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .infotext h3 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .infotext p {
+            font-size: 0.82rem;
+            color: var(--muted);
+        }
+
+        .infotext .infolink {
+            color: var(--blue);
+            text-decoration: none;
+            font-weight: 500;
+            word-break: break-all;
+            transition: var(--transition);
+        }
+
+        .infotext .infolink:hover {
+            color: var(--dark);
+            text-decoration: underline;
+        }
+
+        .socialcard {
+            background: var(--bg);
+            padding: 20px;
+            border-radius: var(--r2);
+            border: 1px solid var(--border);
+            margin-top: 6px;
+        }
+
+        .socialtitle {
+            font-size: 0.98rem;
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .socialtitle i {
+            color: var(--blue);
+        }
+
+        .socialdesc {
+            font-size: 0.82rem;
+            color: var(--muted);
+            margin-bottom: 14px;
+        }
+
+        .socialgrid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+
+        .sbtn {
+            width: 100%;
+            height: 42px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.15rem;
+            text-decoration: none;
+            transition: var(--transition);
+            border: 1px solid var(--border);
+            background: #ffffff;
+            color: var(--text);
+        }
+
+        .sbtn:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow2);
+            color: #ffffff;
+        }
+
+        .sbtn.instagram:hover {
+            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+            border-color: transparent;
+        }
+
+        .sbtn.whatsapp:hover {
+            background: #25d366;
+            border-color: #25d366;
+        }
+
+        .sbtn.facebook:hover {
+            background: #1877f2;
+            border-color: #1877f2;
+        }
+
+        .sbtn.youtube:hover {
+            background: #ff0000;
+            border-color: #ff0000;
+        }
+
+        .sbtn.twitter:hover {
+            background: #000000;
+            border-color: #000000;
+        }
+
+        .sbtn.snapchat:hover {
+            background: #fffc00;
+            color: #000000;
+            border-color: #fffc00;
+        }
+
+        .sbtn.threads:hover {
+            background: #000000;
+            border-color: #000000;
+        }
+
+        .sbtn.spotify:hover {
+            background: #1ed760;
+            border-color: #1ed760;
+        }
+
+        .sbtn.github:hover {
+            background: #24292e;
+            border-color: #24292e;
+        }
+
+        .sbtn.blogger:hover {
+            background: #ff5722;
+            border-color: #ff5722;
+        }
+
+        .sbtn.buymeacoffee:hover {
+            background: #ffdd00;
+            color: #000000;
+            border-color: #ffdd00;
+        }
+
+        .sbtn.patreon:hover {
+            background: #ff424d;
+            border-color: #ff424d;
+        }
+
+        .treebtn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            padding: 11px 14px;
+            background: #39e09b;
+            color: #0d3825;
+            font-weight: 700;
+            font-size: 0.88rem;
+            border-radius: 10px;
+            text-decoration: none;
+            transition: var(--transition);
+            border: none;
+        }
+
+        .treebtn:hover {
+            background: #2cc987;
+            color: #052417;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 14px rgba(57, 224, 155, 0.4);
+        }
+
+        /* Footer Styles */
+        .footer {
+            background: #091730;
+            color: #94a3b8;
+            padding: 14px 20px;
+            text-align: center;
+            position: sticky;
+            bottom: 0;
+            z-index: 1000;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.15);
+        }
+
+        .footbox strong {
+            color: #ffffff;
+        }
+
+        .foottag {
+            font-size: 0.82rem;
+            margin-top: 4px;
+            color: #64748b;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .topbar {
+                padding: 12px 16px;
+            }
+
+            .menu {
+                gap: 4px;
+            }
+
+            .item span {
+                display: none;
+            }
+
+            .item {
+                padding: 8px 12px;
+            }
+
+            .section {
+                padding: 24px 18px;
+            }
+
+            .cgrid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="header">
+        <div class="topbar">
+            <a href="../index.html" class="logo">
+                <span class="brand">Shashen Nethmika</span><span class="dot">.</span>
+            </a>
+            <nav class="menu">
+                <a href="../index.html" class="item"><i class="fa-solid fa-house"></i> <span>Home</span></a>
+                <a href="../index.html#about" class="item"><i class="fa-solid fa-user"></i> <span>About</span></a>
+                <a href="../index.html#education" class="item"><i class="fa-solid fa-graduation-cap"></i>
+                    <span>Education</span></a>
+                <a href="../index.html#skills" class="item"><i class="fa-solid fa-code"></i> <span>Skills</span></a>
+                <a href="../index.html#projects" class="item"><i class="fa-solid fa-briefcase"></i>
+                    <span>Projects</span></a>
+                <a href="contact.html" class="item navbtn active"><i class="fa-solid fa-paper-plane"></i>
+                    <span>Contact</span></a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <section class="section contactsec">
+            <div class="topbox">
+                <a href="../index.html" class="backbtn"><i class="fa-solid fa-arrow-left"></i> <span>Back to
+                        Home</span></a>
+            </div>
+
+            <div class="sechead center">
+                <h1 class="pagetitle"><i class="fa-solid fa-paper-plane"></i> Get In Touch</h1>
+                <div class="line centerline"></div>
+                <p class="secsub">Have a project in mind, a query, or just want to connect? Send me a message below!</p>
+            </div>
+
+            <div class="cgrid">
+                <div class="infocards">
+                    <div class="infocard">
+                        <div class="infoicon">
+                            <i class="fa-solid fa-envelope"></i>
+                        </div>
+                        <div class="infotext">
+                            <h3>Email Me</h3>
+                            <p><a href="mailto:iamshashennethmika@gmail.com"
+                                    class="infolink">iamshashennethmika@gmail.com</a></p>
+                        </div>
+                    </div>
+
+                    <div class="infocard">
+                        <div class="infoicon">
+                            <i class="fa-solid fa-location-dot"></i>
+                        </div>
+                        <div class="infotext">
+                            <h3>Location</h3>
+                            <p>389/3, Gangarama Rd, Alubomulla</p>
+                        </div>
+                    </div>
+
+                    <div class="infocard">
+                        <div class="infoicon">
+                            <i class="fa-solid fa-clock"></i>
+                        </div>
+                        <div class="infotext">
+                            <h3>Response Time</h3>
+                            <p>Usually responds within 24 hours</p>
+                        </div>
+                    </div>
+
+                    <div class="socialcard">
+                        <h3 class="socialtitle"><i class="fa-solid fa-share-nodes"></i> Connect With Me</h3>
+                        <p class="socialdesc">Find me across my official social platforms:</p>
+
+                        <div class="socialgrid">
+                            <a href="https://www.instagram.com/shashen_nethmika" target="_blank"
+                                rel="noopener noreferrer" class="sbtn instagram" title="Instagram">
+                                <i class="fa-brands fa-instagram"></i>
+                            </a>
+                            <a href="https://wa.me/94740066592" target="_blank" rel="noopener noreferrer"
+                                class="sbtn whatsapp" title="WhatsApp">
+                                <i class="fa-brands fa-whatsapp"></i>
+                            </a>
+                            <a href="https://web.facebook.com/shashennethmika" target="_blank" rel="noopener noreferrer"
+                                class="sbtn facebook" title="Facebook">
+                                <i class="fa-brands fa-facebook-f"></i>
+                            </a>
+                            <a href="https://www.youtube.com/@ShashenNethmikaOfficial?sub_confirmation=1"
+                                target="_blank" rel="noopener noreferrer" class="sbtn youtube" title="YouTube">
+                                <i class="fa-brands fa-youtube"></i>
+                            </a>
+                            <a href="https://x.com/ShashenNethmika" target="_blank" rel="noopener noreferrer"
+                                class="sbtn twitter" title="X (Twitter)">
+                                <i class="fa-brands fa-x-twitter"></i>
+                            </a>
+                            <a href="https://www.snapchat.com/add/shashen_nethmik" target="_blank"
+                                rel="noopener noreferrer" class="sbtn snapchat" title="Snapchat">
+                                <i class="fa-brands fa-snapchat"></i>
+                            </a>
+                            <a href="https://www.threads.net/@shashen_nethmika" target="_blank"
+                                rel="noopener noreferrer" class="sbtn threads" title="Threads">
+                                <i class="fa-brands fa-threads"></i>
+                            </a>
+                            <a href="https://open.spotify.com/user/hyrb0kg8hnjxwxakkvtc8cy43" target="_blank"
+                                rel="noopener noreferrer" class="sbtn spotify" title="Spotify">
+                                <i class="fa-brands fa-spotify"></i>
+                            </a>
+                            <a href="https://github.com/shashennethmika" target="_blank" rel="noopener noreferrer"
+                                class="sbtn github" title="GitHub">
+                                <i class="fa-brands fa-github"></i>
+                            </a>
+                            <a href="https://shashennethmikainfo.blogspot.com/" target="_blank"
+                                rel="noopener noreferrer" class="sbtn blogger" title="Blogger">
+                                <i class="fa-solid fa-blog"></i>
+                            </a>
+                            <a href="https://buymeacoffee.com/shashennethmika" target="_blank" rel="noopener noreferrer"
+                                class="sbtn buymeacoffee" title="Buy Me A Coffee">
+                                <i class="fa-solid fa-mug-hot"></i>
+                            </a>
+                            <a href="http://patreon.com/ShashenNethmika" target="_blank" rel="noopener noreferrer"
+                                class="sbtn patreon" title="Patreon">
+                                <i class="fa-brands fa-patreon"></i>
+                            </a>
+                        </div>
+
+                        <a href="https://linktr.ee/Shashen_nethmika" target="_blank" rel="noopener noreferrer"
+                            class="treebtn">
+                            <i class="fa-solid fa-tree"></i> Official Linktree <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="formbox">
+                    <form class="form" action="#" method="POST">
+                        <div class="field">
+                            <label for="name"><i class="fa-solid fa-user"></i> Your Name</label>
+                            <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+                        </div>
+
+                        <div class="field">
+                            <label for="email"><i class="fa-solid fa-at"></i> Your Email</label>
+                            <input type="email" id="email" name="email" placeholder="name@example.com" required>
+                        </div>
+
+                        <div class="field">
+                            <label for="subject"><i class="fa-solid fa-heading"></i> Subject</label>
+                            <input type="text" id="subject" name="subject" placeholder="What is this regarding?"
+                                required>
+                        </div>
+
+                        <div class="field">
+                            <label for="message"><i class="fa-solid fa-comment-dots"></i> Message</label>
+                            <textarea id="message" name="message" rows="5" placeholder="Write your message here..."
+                                required></textarea>
+                        </div>
+
+                        <button type="submit" class="btn sendbtn">
+                            <span>Send Message</span> <i class="fa-solid fa-paper-plane"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="footer">
+        <div class="footbox">
+            <p>&copy; 2026 <strong>Shashen Nethmika</strong>. All rights reserved.</p>
+            <p class="foottag">Created by Shashen Nethmika</p>
+        </div>
+    </footer>
+
+</body>
+
+</html>
