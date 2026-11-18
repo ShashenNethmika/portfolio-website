@@ -1,8 +1,6 @@
 import { initHeroMotion } from "./hero-motion.js";
-import { initProjectExplorer, initProjectGlow } from "./project-explorer.js";
+import { initProjectExplorer } from "./project-explorer.js";
 import { initSignalLab } from "./signal-lab.js";
-
-import { initTerrain } from "./terrain/studio.js";
 
 function initScrollNavigation() {
     const progress = document.querySelector("[data-scroll-progress]");
@@ -49,6 +47,3 @@ initSignalLab();
 initProjectExplorer();
 initHeroMotion();
 initScrollNavigation();
-
-initTerrain();
-initProjectGlow();
