@@ -8,10 +8,14 @@
     <meta name="referrer" content="no-referrer">
     <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; base-uri 'none'; form-action 'none'">
     <title>Shashen Nethmika - Personal Portfolio</title>
-    <link rel="icon" type="image/png" href="images/mark.png">
-    <link rel="stylesheet" href="css/portfolio.css">
-    <link rel="stylesheet" href="css/projects.css">
-    <script src="js/main.js" defer></script>
+    <link rel="icon" type="image/png" href="assets/images/mark.png">
+    <link rel="stylesheet" href="assets/css/portfolio.css">
+    <link rel="stylesheet" href="assets/css/projects.css">
+    <link rel="stylesheet" href="assets/css/hero-motion.css">
+    <link rel="stylesheet" href="assets/css/project-explorer.css">
+    <link rel="stylesheet" href="assets/css/signal-lab.css">
+    <script type="module" src="assets/js/site.js"></script>
+    <script type="module" src="assets/js/home.js"></script>
 </head>
 <body>
     <a class="skip-link" href="#main">Skip to content</a>
@@ -26,12 +30,14 @@
             </button>
             <nav class="site-nav" id="site-nav" data-nav aria-label="Primary navigation">
                 <a href="#home" aria-current="location">Home</a>
-                <a href="#about">About</a>
                 <a href="#projects">Work</a>
+                <a href="#lab">Lab</a>
+                <a href="#about">About</a>
                 <a href="pages/contact.html">Contact</a>
             </nav>
             <a class="header-action" href="pages/contact.html">Let’s talk <span class="arrow" aria-hidden="true">↗</span></a>
         </div>
+        <div class="scroll-progress" data-scroll-progress aria-hidden="true" hidden><span></span></div>
     </header>
 
     <main id="main" tabindex="-1">
@@ -44,17 +50,18 @@
                     <p class="hero-description">I build responsive web experiences and explore where design, AI filmmaking, and electronics meet.</p>
                     <div class="hero-actions">
                         <a class="button button-primary" href="#projects">View my work <span class="arrow" aria-hidden="true">↗</span></a>
-                        <a class="button button-secondary" href="pages/contact.html">Get in touch <span class="arrow" aria-hidden="true">→</span></a>
+                        <a class="button button-secondary" href="#lab">Try Signal Lab <span class="arrow" aria-hidden="true">→</span></a>
                     </div>
-                    <ul class="hero-links" aria-label="Professional profiles">
+                    <ul class="hero-links" aria-label="Quick links">
                         <li><a href="https://github.com/ShashenNethmika">GitHub <span class="arrow" aria-hidden="true">↗</span></a></li>
                         <li><a href="https://www.linkedin.com/in/shashennethmika/">LinkedIn <span class="arrow" aria-hidden="true">↗</span></a></li>
+                        <li><a href="pages/contact.html">Get in touch <span class="arrow" aria-hidden="true">→</span></a></li>
                     </ul>
                 </div>
                 <div class="hero-visual">
                     <span class="hero-cross" aria-hidden="true"></span>
                     <figure class="portrait">
-                        <img src="images/profile.webp" alt="Portrait of Shashen Nethmika" width="960" height="960" fetchpriority="high">
+                        <img src="assets/images/profile.webp" alt="Portrait of Shashen Nethmika" width="960" height="960" fetchpriority="high">
                         <figcaption>
                             <span class="portrait-pin" aria-hidden="true"></span>
                             <span><strong>Based in Sri Lanka</strong><small>University of Ruhuna</small></span>
@@ -190,6 +197,67 @@
                         </div>
                     </article>
                 </div>
+            </div>
+        </section>
+
+        <section class="lab-section" id="lab" aria-labelledby="lab-title">
+            <div class="container">
+                <div class="lab-intro" data-reveal>
+                    <div>
+                        <p class="eyebrow">Interactive playground</p>
+                        <h2 class="section-title" id="lab-title">Signal Lab<span>.</span></h2>
+                    </div>
+                    <p class="section-description">Flip the inputs, follow the signal, and solve four logic circuits. Each gate updates as you experiment.</p>
+                </div>
+
+                <div class="lab-layout" data-signal-lab hidden>
+                    <div class="lab-sidebar">
+                        <div class="lab-steps" role="group" aria-label="Circuit challenges">
+                            <button type="button" data-level="0" aria-controls="lab-circuit" aria-pressed="true">01</button>
+                            <button type="button" data-level="1" aria-controls="lab-circuit" aria-pressed="false">02</button>
+                            <button type="button" data-level="2" aria-controls="lab-circuit" aria-pressed="false">03</button>
+                            <button type="button" data-level="3" aria-controls="lab-circuit" aria-pressed="false">04</button>
+                        </div>
+                        <p class="lab-progress" data-progress>0 of 4 solved</p>
+                        <h3 id="lab-level-title" data-level-title></h3>
+                        <p id="lab-goal" class="lab-goal" data-level-goal></p>
+                        <details class="lab-hint">
+                            <summary>Show a hint</summary>
+                            <p data-level-hint></p>
+                        </details>
+                        <div class="lab-actions">
+                            <button type="button" class="button button-secondary" data-reset>Reset</button>
+                            <button type="button" class="button button-primary" data-next hidden>Next circuit <span class="arrow" aria-hidden="true">→</span></button>
+                        </div>
+                    </div>
+                    <div class="lab-board" id="lab-circuit" role="group" aria-labelledby="lab-level-title" aria-describedby="lab-goal">
+                        <div class="lab-board-header" aria-hidden="true">
+                            <span>Inputs</span><span>Gate stage</span><span>Output</span>
+                        </div>
+                        <div class="lab-flow">
+                            <div class="lab-pairs">
+                                <div class="lab-pair">
+                                    <button type="button" class="lab-switch lab-switch-top" data-switch="0" aria-pressed="false"><span><span class="lab-sr-only">Input </span>A</span><span class="lab-bit" aria-hidden="true">0</span></button>
+                                    <button type="button" class="lab-switch lab-switch-bottom" data-switch="1" aria-pressed="false"><span><span class="lab-sr-only">Input </span>B</span><span class="lab-bit" aria-hidden="true">0</span></button>
+                                </div>
+                                <div class="lab-pair">
+                                    <button type="button" class="lab-switch lab-switch-top" data-switch="2" aria-pressed="false"><span><span class="lab-sr-only">Input </span>C</span><span class="lab-bit" aria-hidden="true">0</span></button>
+                                    <button type="button" class="lab-switch lab-switch-bottom" data-switch="3" aria-pressed="false"><span><span class="lab-sr-only">Input </span>D</span><span class="lab-bit" aria-hidden="true">0</span></button>
+                                </div>
+                            </div>
+                            <div class="lab-pairs">
+                                <div class="lab-gate lab-gate-top" data-gate="0"><span data-operator></span><span class="lab-bit" data-bit></span></div>
+                                <div class="lab-gate lab-gate-bottom" data-gate="1"><span data-operator></span><span class="lab-bit" data-bit></span></div>
+                            </div>
+                            <div class="lab-result">
+                                <div class="lab-gate" data-gate="2"><span data-operator></span><span class="lab-bit" data-bit></span></div>
+                                <p class="lab-output" data-output></p>
+                            </div>
+                        </div>
+                        <p class="lab-status" data-lab-status role="status"></p>
+                    </div>
+                </div>
+                <noscript><p class="section-description">Enable JavaScript to play Signal Lab. The rest of the portfolio remains available.</p></noscript>
             </div>
         </section>
 

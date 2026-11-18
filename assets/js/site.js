@@ -48,20 +48,6 @@ if (menuButton && navigation) {
         if (mobile.matches && navigation.contains(document.activeElement)) menuButton.focus();
         setMenu(false);
     });
-
-    const localLinks = Array.from(navigation.querySelectorAll('a[href^="#"]'));
-    if (localLinks.length) {
-        function updateNavigation() {
-            const active = localLinks.find((link) => link.hash === location.hash) || localLinks[0];
-            for (const link of localLinks) {
-                if (link === active) link.setAttribute("aria-current", "location");
-                else link.removeAttribute("aria-current");
-            }
-        }
-
-        updateNavigation();
-        window.addEventListener("hashchange", updateNavigation);
-    }
 }
 
 const projectFilters = document.querySelector("[data-project-filters]");
