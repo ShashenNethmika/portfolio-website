@@ -1,0 +1,30 @@
+.hero-deck { position: relative; z-index: 1; width: min(100%, 540px); min-width: 0; justify-self: center; }
+.deck-tabs, .terrain-presets, .terrain-tools { display: flex; flex-wrap: wrap; gap: 6px; }
+.deck-tabs { margin-bottom: 12px; }
+.hero-deck button { cursor: pointer; font: 600 .82rem/1.3 var(--font-display); color: #c4cfda; background: #15212c; border: 1px solid #384955; border-radius: 7px; padding: .58rem .8rem; }
+.hero-deck button:hover:enabled, .hero-deck button:focus-visible { border-color: #bcf2c1; }
+.hero-deck button[aria-pressed=true] { background: #c9efad; color: #172316; border-color: #c9efad; }
+.hero-deck button:disabled { opacity: .5; cursor: default; }
+.terrain { overflow: hidden; border: 1px solid #405549; background: #101a1d; border-radius: 15px; box-shadow: 0 28px 75px #0005; }
+.terrain-stage { position: relative; }
+.terrain-stage canvas { width: 100%; aspect-ratio: 1.68; display: block; touch-action: none; cursor: crosshair; }
+.terrain-stage canvas:focus-visible { outline-offset: -4px; }
+.terrain-stage h2, .terrain-name { pointer-events: none; position: absolute; left: 5%; }
+.terrain-stage h2 { top: 6%; color: #f2f4e4; font: 600 clamp(1.4rem,2.5vw,2.4rem)/1 var(--font-display); letter-spacing: -.065em; }
+.terrain-stage h2 span { color: #c9efad; }
+.terrain-name { bottom: 4%; color: #dde5db; font: .67rem var(--font-mono); text-transform: uppercase; letter-spacing: .16em; }
+.terrain-controls { padding: 16px 5%; border-top: 1px solid #405549; }
+.terrain-relief { display: flex; align-items: center; gap: 14px; margin: 14px 0 8px; color: #d6e2d4; font: .78rem var(--font-mono); }
+.terrain-relief input { min-width: 0; flex: 1; accent-color: #c9efad; }
+.terrain-relief output { min-width: 4ch; text-align: right; }
+.terrain-controls p { color: #bccac4; font-size: .8rem; }
+.terrain-tools { justify-content: space-between; margin-top: 10px; }
+.terrain-tools [data-save] { color: #c9efad; }
+.terrain-status { font-size: .78rem; }
+#terrain-keys { display: none; }
+.terrain:has(canvas:focus-visible) #terrain-keys { display: block; }
+@media (max-width: 760px) { .hero-deck { justify-self: start; } }
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+    .project-art::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse at var(--glow-x,50%) var(--glow-y,50%), #ffffff38, transparent 56%); opacity: 0; transition: opacity .23s; }
+    .project-card:hover .project-art::after { opacity: 1; }
+}

@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="assets/css/project-explorer.css">
     <link rel="stylesheet" href="assets/css/signal-lab.css">
     <script type="module" src="assets/js/site.js"></script>
+    <link rel="stylesheet" href="assets/css/terrain.css">
     <script type="module" src="assets/js/home.js"></script>
 </head>
 <body>
@@ -58,6 +59,30 @@
                         <li><a href="pages/contact.html">Get in touch <span class="arrow" aria-hidden="true">→</span></a></li>
                     </ul>
                 </div>
+                <div class="hero-deck">
+                    <div class="deck-tabs" role="group" aria-label="Featured view" hidden>
+                        <button type="button" data-view="studio" aria-pressed="true">Terrain studio</button>
+                        <button type="button" data-view="portrait" aria-pressed="false">Portrait</button>
+                    </div>
+                    <section class="terrain" id="studio" aria-labelledby="terrain-title" hidden>
+                        <div class="terrain-stage">
+                            <canvas tabindex="0" aria-label="Terrain editor" aria-describedby="terrain-help terrain-keys"></canvas>
+                            <h2 id="terrain-title">Terrain studio<span>.</span></h2>
+                            <span class="terrain-name" data-terrain-name></span>
+                        </div>
+                        <div class="terrain-controls">
+                            <div class="terrain-presets" role="group" aria-label="Landscape preset">
+                                <button type="button" aria-pressed="true">Highlands</button>
+                                <button type="button" aria-pressed="false">Dunes</button>
+                                <button type="button" aria-pressed="false">Caldera</button>
+                            </div>
+                            <label class="terrain-relief">Relief <input type="range" min="25" max="150" value="90"><output>90%</output></label>
+                            <p id="terrain-help">Drag to raise a ridge, or tap to add a peak.</p>
+                            <p id="terrain-keys">Arrow keys move the brush. Space adds a peak.</p>
+                            <div class="terrain-tools"><button type="button" data-undo disabled>Undo stroke</button><button type="button" data-save>Save PNG ↓</button></div>
+                            <span class="terrain-status" role="status"></span>
+                        </div>
+                    </section>
                 <div class="hero-visual">
                     <span class="hero-cross" aria-hidden="true"></span>
                     <figure class="portrait">
@@ -67,6 +92,7 @@
                             <span><strong>Based in Sri Lanka</strong><small>University of Ruhuna</small></span>
                         </figcaption>
                     </figure>
+                </div>
                 </div>
             </div>
         </section>
