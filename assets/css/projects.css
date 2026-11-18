@@ -508,3 +508,8 @@
         transform: none;
     }
 }
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+    .project-art::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse at var(--glow-x,50%) var(--glow-y,50%), #ffffff38, transparent 56%); opacity: 0; transition: opacity .23s; }
+    .project-card:hover .project-art::after { opacity: 1; }
+}
