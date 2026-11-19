@@ -4,7 +4,7 @@
 
 Local commit `d162fd9` is a snapshot of a later standalone four-station HTML Lab, not the same implementation currently on GitHub. Remote HEAD verified read-only: `0cf3c3ea5901a270e2c247211fabfa79a7a798f5`. The published website and remote tree were fetched and compared. Remote source copies are kept ignored under `docs/audit/` for inspection, not shipped.
 
-The local tree has three HTML files, ten CSS files (~3,473 lines), three IIFE scripts (~1,800 lines), a self-hosted Space Grotesk font with OFL license, 960×960 portrait WebP (45,166 bytes), and PNG brand mark. No existing workflow, server, contact service, or configured Git remote was present locally. Branches `main` and `migration/nextjs-transformation` existed before this work. Original files remain in place until replacement validation; neither production nor main is changed.
+The local tree has three HTML files, ten CSS files (~3,473 lines), three IIFE scripts (~1,800 lines), a self-hosted Space Grotesk font with OFL license, 960×960 portrait WebP (45,166 bytes), and PNG brand mark. No existing workflow, server, contact service, or configured Git remote was present locally. Branches `main` and `migration/nextjs-transformation` existed before this work. This records the initial audit state. After successful replacement validation, the original application was archived under legacy/; later main-branch publication was explicitly authorized by the owner.
 
 Inspected homepage, Lab and contact markup, application/contact/Lab scripts, base tokens, page styling and animation selectors. Compared remote `index.html`, contact, project explorer, hero motion, Signal Lab, home/site scripts, glow module and referenced styles. The README's claims were not taken as proof.
 

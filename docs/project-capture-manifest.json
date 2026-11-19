@@ -1,0 +1,79 @@
+[
+  {
+    "slug": "vesak-card-generator",
+    "source": "https://shashennethmika.github.io/Vesak-Card-Generator/",
+    "repository": "https://github.com/ShashenNethmika/Vesak-Card-Generator",
+    "inspectedTree": "2f00b2aa034ae4073e8a2c2a7722fadb35bef21f",
+    "title": "Vesak Card Generator",
+    "file": "public/images/projects/vesak-card-generator.webp",
+    "viewport": "1280 × 850",
+    "bytes": 66414,
+    "originalPngBytes": 306675,
+    "originalPngSha256": "2795bd3262ddb9d172e1431967eff7a3a7410d2fb71a4d7bed47f2a27634e47f",
+    "actions": [],
+    "capturedAt": "2026-11-19T08:37:37.008Z",
+    "status": "captured"
+  },
+  {
+    "slug": "new-year-wish",
+    "source": "https://shashennethmika.github.io/Sinhala-and-Tamil-New-Year-Wish/",
+    "repository": "https://github.com/ShashenNethmika/Sinhala-and-Tamil-New-Year-Wish",
+    "inspectedTree": "eef0694809c57a1d02fb67e8b5cbc1fc1f852caf",
+    "title": "New Year Wish By Shashen",
+    "file": "public/images/projects/new-year-wish.webp",
+    "viewport": "1280 × 850",
+    "bytes": 87422,
+    "originalPngBytes": 688710,
+    "originalPngSha256": "6545c0fe2c295cc4af9d1802056d6282ad68024eca1323512961c7a374d017eb",
+    "actions": [
+      "Entered the portfolio owner's name and generated the real wish card using the deployed application's button."
+    ],
+    "capturedAt": "2026-11-19T08:37:46.087Z",
+    "status": "captured"
+  },
+  {
+    "slug": "study-buddy-timer",
+    "source": "https://shashennethmika.github.io/Study-Buddy-Timer/",
+    "repository": "https://github.com/ShashenNethmika/Study-Buddy-Timer",
+    "inspectedTree": "ef5d2d014d92aceedacbfe1b371e7aba22c7bc2a",
+    "title": "Study Buddy Timer",
+    "file": "public/images/projects/study-buddy-timer.webp",
+    "viewport": "1280 × 850",
+    "bytes": 16840,
+    "originalPngBytes": 39816,
+    "originalPngSha256": "83fdaba1e281bb8f5952028cb23114558e43d64ba6a6e0bb39f720ff4a6119b4",
+    "actions": [],
+    "capturedAt": "2026-11-19T08:37:51.503Z",
+    "status": "captured"
+  },
+  {
+    "slug": "weather-forecast",
+    "source": "https://shashennethmika.github.io/Weather-Forecast/",
+    "repository": "https://github.com/ShashenNethmika/Weather-Forecast",
+    "inspectedTree": "4b4d03282be735a5d5f8547c463eb0c91f91da26",
+    "title": "Weather Forecast",
+    "file": "public/images/projects/weather-forecast.webp",
+    "viewport": "1280 × 850",
+    "bytes": 25178,
+    "originalPngBytes": 92422,
+    "originalPngSha256": "c7383dc775d63d6f489548b4f788672c711274a8214bbca75809412e171594dc",
+    "actions": [],
+    "capturedAt": "2026-11-19T08:37:54.016Z",
+    "status": "captured"
+  },
+  {
+    "slug": "filmpotha",
+    "source": "https://shashennethmika.github.io/FilmPotha/",
+    "repository": "https://github.com/ShashenNethmika/FilmPotha",
+    "inspectedTree": "6d33a5f080b477c4e4ca72728af2aeb942a18ce8",
+    "title": "Film Potha - Movie & TV Series Search",
+    "file": "public/images/projects/filmpotha.webp",
+    "viewport": "1280 × 850",
+    "bytes": 83942,
+    "originalPngBytes": 612029,
+    "originalPngSha256": "c3314e85268e83a38f0967f429ea6049d9eef0a84cbb3d2359f9afaf0f3de0bd",
+    "actions": [],
+    "capturedAt": "2026-11-19T08:37:58.297Z",
+    "status": "captured"
+  }
+]

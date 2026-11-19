@@ -10,7 +10,7 @@ test.beforeEach(async ({ page }) => {
 });
 test.afterEach(async ({ page }) => { expect(errors.get(page), "No browser errors with motion enabled").toEqual([]); });
 
-test("normal-motion hero lazily starts WebGL or keeps its accessible fallback", async ({ page }) => {
+test("normal-motion hero lazily starts WebGL or keeps its accessible fallback", async ({ page, isMobile }) => {
   await page.goto("./");
   const supported = await page.evaluate(() => {
     try {
@@ -21,7 +21,8 @@ test("normal-motion hero lazily starts WebGL or keeps its accessible fallback", 
     } catch { return false; }
   });
   await expect(page.getByRole("img", { name: "Shashen Nethmika", exact: true }).first()).toBeVisible();
-  if (supported) {
+  if (supported && !isMobile) {
+    await page.mouse.move(200, 250);
     const canvas = page.locator("#hero canvas");
     await expect(canvas).toBeVisible({ timeout: 20_000 });
     expect(await canvas.evaluate((element: HTMLCanvasElement) => element.width > 0 && element.height > 0)).toBe(true);
@@ -29,7 +30,7 @@ test("normal-motion hero lazily starts WebGL or keeps its accessible fallback", 
     await page.mouse.move(700, 350);
     await expect(page.getByRole("heading", { level: 1 })).toContainText("Shashen");
   } else {
-    // The hero requests the optional WebGL module after 1.8 seconds.
+    // Touch and reduced-capability devices keep the lightweight static field.
     await page.waitForTimeout(2500);
     await expect(page.locator("#hero canvas")).toHaveCount(0);
     await expect(page.getByRole("link", { name: "Explore The Lab", exact: true })).toBeVisible();
@@ -38,7 +39,7 @@ test("normal-motion hero lazily starts WebGL or keeps its accessible fallback", 
 
 test("particle frames advance only while visible and running", async ({ page }) => {
   await page.addInitScript(() => {
-    const target = window as Window & { __particleDraws: number };
+    const target = window as unknown as Window & { __particleDraws: number };
     target.__particleDraws = 0;
     const original = CanvasRenderingContext2D.prototype.fillRect;
     CanvasRenderingContext2D.prototype.fillRect = function (this: CanvasRenderingContext2D, ...args: Parameters<typeof original>) {
@@ -46,7 +47,7 @@ test("particle frames advance only while visible and running", async ({ page }) 
       return original.apply(this, args);
     };
   });
-  const draws = () => page.evaluate(() => (window as Window & { __particleDraws: number }).__particleDraws);
+  const draws = () => page.evaluate(() => (window as unknown as Window & { __particleDraws: number }).__particleDraws);
   await page.goto("lab/particle-sandbox/");
   const canvas = page.getByRole("img", { name: /Interactive particle field/ });
   await expect(page.getByRole("button", { name: "Pause simulation", exact: true })).toBeVisible();

@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import Link from '@/components/ui/site-link';
 import { FlaskConical,Code2,Network,Orbit } from 'lucide-react';
 import Hero from '@/components/hero/hero';
 import ProjectGrid from '@/components/projects/project-grid';

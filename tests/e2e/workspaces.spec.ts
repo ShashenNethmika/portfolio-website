@@ -12,17 +12,21 @@ test.afterEach(async ({ page }) => { expect(errors.get(page), "No browser errors
 async function setRange(range: Locator, value: string) {
   const min = Number(await range.getAttribute("min") || 0);
   const step = Number(await range.getAttribute("step") || 1);
+  const max = Number(await range.getAttribute("max") || 100);
   await range.press("Home");
-  for (let i = 0; i < Math.round((Number(value) - min) / step); i++) await range.press("ArrowRight");
+  // Use the native coarse keyboard gesture, then fine-tune the exact value.
+  for(let i=0;i<Math.floor((Number(value)-min)/Math.max(step,(max-min)/10));i++)await range.press('PageUp');
+  const remaining=Math.round((Number(value)-Number(await range.inputValue()))/step);
+  for(let i=0;i<Math.abs(remaining);i++)await range.press(remaining>0?'ArrowRight':'ArrowLeft');
   await expect(range).toHaveValue(value);
 }
 
 test("logic builder calculates and connects actual multi-gate circuits", async ({ page }) => {
   await page.goto("lab/logic-circuit/");
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("Logic Circuit Studio");
-  await expect(page.getByRole("button", { name: "Toggle A", exact: true })).toHaveAttribute("aria-pressed", "true");
-  await page.getByRole("button", { name: "Toggle B", exact: true }).click();
-  await expect(page.getByRole("button", { name: "Toggle A", exact: true })).toHaveAttribute("aria-pressed", "true");
+  await expect(page.getByRole("button", { name: /^Toggle A:/ })).toHaveAttribute("aria-pressed", "true");
+  await page.getByRole("button", { name: /^Toggle B:/ }).click();
+  await expect(page.getByRole("button", { name: /^Toggle A:/ })).toHaveAttribute("aria-pressed", "true");
   await expect(page.getByText(/Circuit valid\. All components are connected/)).toBeVisible();
   await expect(page.getByRole("table").locator("tbody tr").last().locator("td")).toHaveText(["1", "1", "1"]);
   await page.getByRole("combobox", { name: "Component to add", exact: true }).selectOption("NOT");
@@ -62,7 +66,7 @@ test("binary explorer handles 32-bit unsigned, signed two's complement, and save
   await expect(page.getByTestId("a-decimal")).toHaveText("0");
   await page.getByLabel("Set A from decimal, binary, hex, or octal", { exact: true }).fill("4294967296");
   await page.getByRole("button", { name: "Set A", exact: true }).click();
-  await expect(page.getByRole("alert")).toBeVisible();
+  await expect(page.locator("#error-A")).toContainText("Allowed range");
 });
 
 test("particle sandbox respects reduced motion, updates controls, and persists a setup", async ({ page }) => {

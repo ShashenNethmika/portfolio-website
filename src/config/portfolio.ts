@@ -28,8 +28,8 @@ export const projectDemo = (p: Project) => p.repo ? `https://shashennethmika.git
 export const skillGroups = [
   {name:'Programming',items:['JavaScript','TypeScript'],note:'Used in this portfolio and its interactive experiments.'},
   {name:'Frontend',items:['HTML5','CSS3','Flexbox & Grid','Responsive UI','CSS Animation','React','Next.js'],note:'Interfaces, layouts, and responsive web experiences.'},
-  {name:'Backend',items:[],note:'No backend proficiency claim in the original portfolio.'},
-  {name:'Databases',items:[],note:'No database proficiency claim in the original portfolio.'},
+  {name:'Backend',items:[],note:'A future area to explore.'},
+  {name:'Databases',items:[],note:'A future area to explore.'},
   {name:'Networking',items:['IP addressing','Subnetting'],note:'Explore these concepts in The Lab’s educational Network Studio.'},
   {name:'Development Tools',items:['Git & GitHub','Tinkercad','IC Simulation'],note:'Version control and electronic systems exploration.'},
   {name:'Creative Technologies',items:['Generative AI Video','Prompt Engineering','DaVinci Resolve','CapCut','Circuit & Logic Design'],note:'Visual storytelling meets digital electronics.'},

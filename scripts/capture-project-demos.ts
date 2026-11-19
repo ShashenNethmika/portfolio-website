@@ -1,7 +1,18 @@
 /** Capture genuine deployed project UIs. Never substitute generated artwork for failed captures. */
 import { chromium } from "@playwright/test";
 import { mkdir, writeFile } from "node:fs/promises";
+import { createRequire } from "node:module";
+import { createHash } from "node:crypto";
 import path from "node:path";
+
+type Optimizer = (input: Buffer) => { webp: (options: { quality: number; effort: number }) => { toBuffer: () => Promise<Buffer> } };
+let optimize: Optimizer | null = null;
+try {
+  // Next already depends on Sharp. Reuse its installed copy without adding a dependency.
+  const resolvePackage = createRequire(import.meta.url);
+  const loadNextDependency = createRequire(resolvePackage.resolve("next/package.json"));
+  optimize = loadNextDependency("sharp") as Optimizer;
+} catch { /* PNG is a faithful fallback if the optional native optimizer is unavailable. */ }
 
 const projects = [
   { slug: "vesak-card-generator", repo: "Vesak-Card-Generator", title: "Vesak Card Generator", ready: "#card-image", tree: "2f00b2aa034ae4073e8a2c2a7722fadb35bef21f" },
@@ -24,7 +35,7 @@ try {
       if (!response?.ok()) throw new Error(`Live demo returned HTTP ${response?.status() ?? "no response"}.`);
       await page.locator(project.ready).waitFor({ state: "visible", timeout: 20_000 });
       if (await page.title() !== project.title) throw new Error(`Unexpected page title: ${await page.title()}`);
-      await page.waitForLoadState("load", { timeout: 20_000 });
+      // Verify the visible app directly; unrelated third-party resources may keep load pending.
       await page.evaluate(() => Promise.race([document.fonts.ready, new Promise(resolve => setTimeout(resolve, 5000))]));
       if (project.slug === "filmpotha") await page.locator(".movie-card").first().waitFor({ state: "visible", timeout: 20_000 });
       await page.waitForFunction(() => [...document.images].filter(img => {
@@ -40,14 +51,29 @@ try {
       if (checks.brokenImages.length) throw new Error(`Visible project images failed to load: ${checks.brokenImages.length}`);
       const actions: string[] = [];
       if (project.slug === "new-year-wish") {
+        await page.evaluate(async () => {
+          const artwork = new Image();
+          artwork.src = new URL("Post.jpg", location.href).href;
+          await artwork.decode();
+          if (!artwork.naturalWidth) throw new Error("The original greeting artwork did not load.");
+        });
         await page.locator("#nameInput").fill("Shashen Nethmika");
         await page.getByRole("button", { name: "Generate Custom Wish Card", exact: true }).click();
         await page.locator("#wishCanvas.showCard").waitFor({ state: "visible" });
         if (!await page.locator("#wishCanvas").evaluate((canvas: HTMLCanvasElement) => canvas.width > 300 && canvas.height > 300)) throw new Error("The generated wish canvas is empty.");
         actions.push("Entered the portfolio owner's name and generated the real wish card using the deployed application's button.");
       }
-      await page.screenshot({ path: path.join(folder, `${project.slug}.png`), fullPage: false, animations: "disabled" });
-      records.push({ slug: project.slug, source: url, repository: `https://github.com/ShashenNethmika/${project.repo}`, inspectedTree: project.tree, title: await page.title(), file: `public/images/projects/${project.slug}.png`, viewport: "1280 × 850", actions, capturedAt: new Date().toISOString(), status: "captured" });
+      const capture = await page.screenshot({ type: "png", fullPage: false, animations: "disabled" });
+      let extension = "png", output = capture;
+      if (optimize) {
+        try {
+          const webp = await optimize(capture).webp({ quality: 84, effort: 4 }).toBuffer();
+          if (webp.length < capture.length) { extension = "webp"; output = webp; }
+        } catch { /* Keep the verified PNG when optimization is unavailable. */ }
+      }
+      const filename = `${project.slug}.${extension}`;
+      await writeFile(path.join(folder, filename), output);
+      records.push({ slug: project.slug, source: url, repository: `https://github.com/ShashenNethmika/${project.repo}`, inspectedTree: project.tree, title: await page.title(), file: `public/images/projects/${filename}`, viewport: "1280 × 850", bytes: output.length, originalPngBytes: capture.length, originalPngSha256: createHash("sha256").update(capture).digest("hex"), actions, capturedAt: new Date().toISOString(), status: "captured" });
       process.stdout.write(`Captured ${project.repo}\n`);
     } catch (error) {
       records.push({ slug: project.slug, source: url, status: "not captured", reason: error instanceof Error ? error.message : String(error) });

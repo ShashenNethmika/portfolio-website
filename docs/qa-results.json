@@ -1,0 +1,70 @@
+{
+  "date": "2026-11-19",
+  "unit": {
+    "files": 8,
+    "passed": 31
+  },
+  "browser": {
+    "passed": 62,
+    "projects": [
+      "desktop Edge 1440x1000",
+      "mobile Chromium emulation 390x844"
+    ],
+    "automatedAccessibilityRoutes": 13,
+    "standards": [
+      "WCAG 2 A/AA",
+      "WCAG 2.1 A/AA",
+      "WCAG 2.2 AA"
+    ],
+    "consoleErrors": 0,
+    "navigationRegressionPassed": 6
+  },
+  "typecheck": "passed: next typegen and tsc --noEmit",
+  "lint": "passed: zero warnings",
+  "productionBuild": "passed: static export plus 13 navigation payload aliases",
+  "dependencyAudit": "no known vulnerabilities (all dependencies)",
+  "peerDependencies": "no issues",
+  "screenshots": {
+    "genuineProjects": 5,
+    "webpBytes": 279796,
+    "originalPngBytes": 1739652
+  },
+  "performance": {
+    "method": "Headless Edge Lighthouse simulated mobile, median of 3 isolated runs; one desktop run. Local static preview, not field data.",
+    "mobileMedian": 90,
+    "mobileRuns": [
+      {
+        "run": 1,
+        "performance": 90,
+        "lcp": "1.3 s",
+        "tbt": "400 ms",
+        "cls": "0"
+      },
+      {
+        "run": 2,
+        "performance": 80,
+        "lcp": "1.3 s",
+        "tbt": "810 ms",
+        "cls": "0"
+      },
+      {
+        "run": 3,
+        "performance": 91,
+        "lcp": "1.2 s",
+        "tbt": "320 ms",
+        "cls": "0"
+      }
+    ],
+    "desktop": {
+      "performance": 93,
+      "accessibility": 100,
+      "best-practices": 100,
+      "seo": 100
+    },
+    "mobileOtherScores": {
+      "accessibility": 100,
+      "bestPractices": 100,
+      "seo": 100
+    }
+  }
+}

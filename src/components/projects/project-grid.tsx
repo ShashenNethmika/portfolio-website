@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
-import { X, Github, Play, Pause, RotateCcw, Globe } from 'lucide-react';
+import { X, Code2 as Github, Play, Pause, RotateCcw, Globe } from 'lucide-react';
 import { projects, projectRepo, projectDemo, type Project } from '@/config/portfolio';
 import ProjectArt from './project-art';
 
@@ -48,10 +48,10 @@ export default function ProjectGrid({headingLevel=3}:{headingLevel?:2|3}){
     <div className="grid gap-x-7 gap-y-10 md:grid-cols-2 lg:grid-cols-3">
       <AnimatePresence mode="popLayout">
         {visible.map(p=><motion.article key={p.slug} layout={!reduced} initial={{opacity:1,y:reduced?0:12}} animate={{opacity:1,y:0}} exit={{opacity:0}} transition={{duration:.25}} className="group min-w-0">
-          <button onClick={()=>open(p)} className="block w-full text-left" aria-label={`Explore ${p.name}`}>
+          <button onClick={()=>open(p)} className="block w-full text-left">
             <div className="transition-transform duration-500 group-hover:-translate-y-1"><ProjectArt project={p}/></div>
-            <div className="mt-5 flex items-center gap-2 text-xs text-muted"><span className="h-px w-5" style={{background:p.color}}/>{p.type}</div>
-            <ProjectHeading className="mt-2 text-xl tracking-tight group-hover:text-accent">{p.name}</ProjectHeading>
+            <div id={`project-type-${p.slug}`} className="mt-5 flex items-center gap-2 text-xs text-muted"><span className="h-px w-5" style={{background:p.color}}/>{p.type}</div>
+            <ProjectHeading id={`project-${p.slug}`} className="mt-2 text-xl tracking-tight group-hover:text-accent">{p.name}</ProjectHeading>
           </button>
           <p className="mt-3 text-sm leading-6 text-muted">{p.description}</p>
           <div className="mt-4 flex flex-wrap gap-2">{p.tech.map(t=><span key={t} className="rounded border border-line px-2 py-1 text-xs text-slate-300">{t}</span>)}</div>

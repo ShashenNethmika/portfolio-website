@@ -38,6 +38,7 @@ export function retimeProject(project: MotionProject, duration: number): MotionP
 /** Deterministic piecewise-linear interpolation, clamped outside the keyframe range. */
 export function interpolateFrame(frames: Keyframe[], time: number): Keyframe {
   if (!frames.length) throw new Error("A shape needs at least one keyframe.");
+  if (!Number.isFinite(time)) throw new Error("Animation time must be finite.");
   const ordered = [...frames].sort((a, b) => a.time - b.time);
   if (time <= ordered[0].time) return { ...ordered[0], time };
   if (time >= ordered[ordered.length - 1].time) return { ...ordered[ordered.length - 1], time };

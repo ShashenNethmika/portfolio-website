@@ -1,5 +1,5 @@
 'use client';
-import Link from 'next/link';
+import Link from '@/components/ui/site-link';
 import { useEffect, useState } from 'react';
 import { Search, Bookmark, Clock3, FlaskConical } from 'lucide-react';
 import { stations, type StationId } from '@/config/stations';

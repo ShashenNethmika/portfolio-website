@@ -1,5 +1,5 @@
 'use client';
-import Link from 'next/link';
+import Link from '@/components/ui/site-link';
 import dynamic from 'next/dynamic';
 import { useEffect,useRef,useState } from 'react';
 import { Maximize, HelpCircle, LayoutGrid } from 'lucide-react';

@@ -23,4 +23,9 @@ dialog::backdrop { background:rgb(2 6 14 / .85); backdrop-filter:blur(8px); }
 .lab-button { border:1px solid #344559; border-radius:.5rem; background:#152231; padding:.6rem 1rem; font-size:.875rem; transition:background .2s; }
 .lab-button:hover { background:#22364a; }
 .lab-input { width:100%; border:1px solid #344559; border-radius:.5rem; background:#0b1420; padding:.6rem .8rem; color:#edf3f6; }
+.station-preview svg { transition:transform .6s ease; transform-origin:center; }
+@media (prefers-reduced-motion:no-preference) { .group:hover .station-preview svg,.group:focus-within .station-preview svg { transform:scale(1.055); } .group:hover .station-preview path[stroke-dasharray],.group:focus-within .station-preview path[stroke-dasharray] { animation:signal-flow 1.5s linear infinite; } }
+@keyframes signal-flow { to { stroke-dashoffset:-36; } }
+.hero-entry { animation:hero-entry .65s ease-out both; }
+@keyframes hero-entry { from { transform:translateY(12px); } to { transform:translateY(0); } }
 @media(prefers-reduced-motion:reduce) { html {scroll-behavior:auto;} *,*::before,*::after { animation-duration:.01ms!important; animation-iteration-count:1!important; transition-duration:.01ms!important; } }

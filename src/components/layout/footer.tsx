@@ -1,3 +1,3 @@
-import Link from 'next/link';
+import Link from '@/components/ui/site-link';
 import { profile } from '@/config/portfolio';
 export default function Footer(){return <footer className="border-t border-line"><div className="mx-auto flex max-w-[1400px] flex-col gap-6 px-6 py-9 text-sm text-muted sm:flex-row sm:items-center sm:justify-between lg:px-14"><p>© 2026 Shashen Nethmika<span className="mx-3 text-line">/</span>Built with curiosity.</p><nav aria-label="Footer" className="flex flex-wrap gap-6"><a href={profile.github} target="_blank" rel="noreferrer">GitHub</a><a href={profile.linkedin} target="_blank" rel="noreferrer">LinkedIn</a><Link href="/contact/">Let’s connect</Link></nav></div></footer>;}

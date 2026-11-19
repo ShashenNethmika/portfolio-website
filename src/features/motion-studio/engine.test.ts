@@ -12,6 +12,7 @@ describe("motion interpolation", () => {
     const frames = initialProject.shapes[0].keyframes;
     expect(interpolateFrame([...frames].reverse(), 1).x).toBe(300);
     expect(interpolateFrame([frames[0]], 2).x).toBe(180);
+    expect(() => interpolateFrame(frames, NaN)).toThrow("Animation time must be finite");
   });
   it("creates a seamless preset across the full composition duration", () => {
     const orbit = applyPreset(initialProject.shapes[0], "orbit", 8);

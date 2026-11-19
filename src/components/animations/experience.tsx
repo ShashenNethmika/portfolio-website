@@ -2,7 +2,7 @@
 import { useEffect, useRef } from 'react';
 import { usePathname } from 'next/navigation';
 export default function Experience(){
-  const path=usePathname();const cursor=useRef<HTMLDivElement>(null);
+  const path=usePathname() || '/';const cursor=useRef<HTMLDivElement>(null);
   useEffect(()=>{
     if(!matchMedia('(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)').matches)return;
     let disposed=false;let cleanup=()=>{};
@@ -13,7 +13,7 @@ export default function Experience(){
       const ctx=gsap.context(()=>{gsap.utils.toArray<HTMLElement>('[data-reveal]').forEach(el=>gsap.fromTo(el,{y:22},{y:0,duration:.8,ease:'power2.out',scrollTrigger:{trigger:el,start:'top 94%',once:true}}));});
       const visibility=()=>{if(document.hidden)gsap.ticker.remove(tick);else gsap.ticker.add(tick);};document.addEventListener('visibilitychange',visibility);
       cleanup=()=>{document.removeEventListener('visibilitychange',visibility);gsap.ticker.remove(tick);ctx.revert();lenis.destroy();};
-    });
+    }).catch(()=>{ /* Optional enhancement: native scrolling remains available. */ });
     const move=(e:PointerEvent)=>{if(cursor.current){cursor.current.style.opacity='1';cursor.current.style.transform=`translate3d(${e.clientX-12}px,${e.clientY-12}px,0)`;}};
     window.addEventListener('pointermove',move,{passive:true});
     return()=>{disposed=true;cleanup();window.removeEventListener('pointermove',move);};
