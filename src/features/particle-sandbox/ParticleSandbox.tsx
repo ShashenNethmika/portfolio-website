@@ -113,7 +113,7 @@ export default function ParticleSandbox() {
     const observer = new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; sync(); });
     observer.observe(wrap);
     canvas.addEventListener("pointermove", move); canvas.addEventListener("pointerdown", down);
-    canvas.addEventListener("pointerleave", leave); canvas.addEventListener("pointerup", leave);
+    canvas.addEventListener("pointerleave", leave); canvas.addEventListener("pointerup", leave); canvas.addEventListener("pointercancel", leave);
     document.addEventListener("visibilitychange", sync);
     wrap.addEventListener("sandbox-sync", sync);
     const reducedMotion = () => { if (media.matches) setPaused(true); };
@@ -122,7 +122,7 @@ export default function ParticleSandbox() {
     return () => {
       disposed = true; cancelAnimationFrame(raf); resizeObserver.disconnect(); observer.disconnect();
       canvas.removeEventListener("pointermove", move); canvas.removeEventListener("pointerdown", down);
-      canvas.removeEventListener("pointerleave", leave); canvas.removeEventListener("pointerup", leave);
+      canvas.removeEventListener("pointerleave", leave); canvas.removeEventListener("pointerup", leave); canvas.removeEventListener("pointercancel", leave);
       document.removeEventListener("visibilitychange", sync); wrap.removeEventListener("sandbox-sync", sync);
       media.removeEventListener("change", reducedMotion);
     };
