@@ -122,8 +122,8 @@
     "remainingTarget": "The 90+ mobile performance target has not been reached consistently. Main-thread blocking remains variable."
   },
   "deployment": {
-    "commit": "6dbbd80bf402bf4c565913c264879cca7fe9cb0f",
-    "workflow": "https://github.com/ShashenNethmika/portfolio-website/actions/runs/44499146951",
+    "commit": "0f0cf29005f7894f3e2ebf7f89be40fe8ba17f3c",
+    "workflow": "https://github.com/ShashenNethmika/portfolio-website/actions/runs/44508360160",
     "workflowConclusion": "success",
     "buildSource": "GitHub Actions",
     "url": "https://shashennethmika.github.io/portfolio-website/",
@@ -204,7 +204,7 @@
     "projectDialog": "passed",
     "portrait": "original 960px WebP loaded",
     "legacyIndexNavigation": "passed",
-    "checkedAt": "2026-11-19T09:47:40.626Z",
+    "checkedAt": "2026-11-19T10:48:37.271Z",
     "ciBrowserTestsPassed": 62,
     "ciUnitTestsPassed": 31
   },
@@ -233,6 +233,16 @@
       "productionBuild": "passed",
       "dependencyAudit": "no known vulnerabilities"
     },
-    "performanceRemeasured": false
+    "performanceRemeasured": false,
+    "release": {
+      "commit": "0f0cf29005f7894f3e2ebf7f89be40fe8ba17f3c",
+      "workflow": "https://github.com/ShashenNethmika/portfolio-website/actions/runs/44508360160",
+      "conclusion": "success",
+      "unitTests": 31,
+      "browserTests": 62,
+      "liveEntryPoints": 14,
+      "consoleErrors": 0,
+      "verifiedAt": "2026-11-19T10:48:37.271Z"
+    }
   }
 }
