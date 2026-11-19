@@ -68,7 +68,7 @@ Legacy HTML/CSS/JS is preserved under `legacy/` for rollback, outside Next's sou
 
 ## Performance, accessibility and security
 
-No fake loading counter or globally downloaded CDN engines. The 45 KB portrait is prioritized with explicit dimensions, the font is self-hosted, project images are lazy-loaded, and static pages are generated at build time. WebGL loads on first desktop pointer activity; touch/reduced-motion visitors keep the lightweight field. Workspaces are code-split, rendering stops offscreen/hidden/paused, event handlers clean up, and optional animation failure falls back to native navigation.
+No fake loading counter or globally downloaded CDN engines. The 45 KB portrait is prioritized with explicit dimensions, the font is self-hosted, project images are lazy-loaded, and static pages are generated at build time. WebGL loads on first desktop pointer activity; touch/reduced-motion visitors keep the lightweight field. Workspaces are code-split, rendering stops offscreen/hidden/paused, event handlers clean up, and optional animation failure falls back to native navigation. The project-filter layout engine now loads when its controls enter the viewport or receive interaction, using Motion LazyMotion. Initial cards remain server-rendered and readable.
 
 Accessibility fixes found through browser testing include native project-button names, explicit range labels (nested output elements had captured implicit labels), larger separated circuit ports, readable muted text, named keyboard-scroll regions and preserved dialog focus. Navigation uses native links and the regular pointer remains available. No accessibility rule is suppressed to obtain passing results.
 
@@ -82,7 +82,7 @@ Stored content is Zod-validated and rendered as text/typed geometry. SVG export 
 - ESLint: passed with zero warnings; standalone route type generation and `tsc --noEmit` passed.
 - Desktop/mobile Playwright: 62 passed, including 26 automated accessibility route audits (13 routes × two viewports). No console/page errors in interaction and normal-motion tests. Six focused navigation/WebGL regressions also passed after the final prefetch optimization.
 - Full and production dependency audits: no known vulnerabilities. Peer checks: no issues.
-- Final Lighthouse measurements are appended below after the isolated performance run.
+- Lighthouse desktop/mobile measurements and the verified production release are recorded below.
 - Real-browser checks cover portrait decoding, project dialog/filtering, all six stations, saves, clipboard, SVG parsing, original routes, challenge progress, invalid persistence, normal/reduced motion and Canvas rendering suspension.
 
 ## GitHub Pages deployment
@@ -95,10 +95,28 @@ Stored content is Zod-validated and rendered as text/typed geometry. SVG export 
 
 This is an educational combinational circuit and networking environment, not a sequential electronics solver or real network stack. Particle physics is a creative spring/wave model, not a fluid solver. Motion uses linear keyframes and native SMIL exports. Browser saves remain on this device; no cloud backup/auth/collaboration is claimed. A real contact form and backend services are not configured because no provider is supplied. AI Cinema retains artwork rather than an invented screenshot.
 
-## Final local measurements — 19 November 2026
+## Local measurements before final gallery deferral — 19 November 2026
 
 Lighthouse desktop performance **93**; mobile performance **90 median** across three isolated simulated-mobile runs (**90, 80, 91**). Accessibility, best practices and SEO scored **100**. Mobile LCP was 1.2–1.3 seconds and CLS was 0; TBT varied from 320–810 ms. Desktop LCP was 1.6 seconds and TBT 70 ms. These are lab measurements against the real static export, not field Core Web Vitals or a guarantee for every device/network. Earlier diagnostic runs exposed deferred 3D and prefetch costs; desktop WebGL now waits for pointer activity, mobile keeps the static field, route prefetch is intentional, and hero entrances do not wait on scroll libraries.
 
 The five verified WebP screenshots total **279,796 bytes**, versus **1,739,652 bytes** for the original lossless captures (about **84% smaller**). No profile replacement or image-generation service was used.
 
-Machine-readable results are in [qa-results.json](qa-results.json). Full local HTML/JSON Lighthouse reports remain under `.lighthouseci/`; the Playwright HTML report is `playwright-report/index.html`. GitHub deployment and post-publication verification are recorded after the release run.
+Machine-readable results are in [qa-results.json](qa-results.json). Full local HTML/JSON Lighthouse reports remain under `.lighthouseci/`; the Playwright HTML report is `playwright-report/index.html`. The verified production release is recorded below.
+
+## Verified production release — 19 November 2026
+
+The user-authorized `main` release `6dbbd80bf402bf4c565913c264879cca7fe9cb0f` passed the [complete GitHub Actions workflow](https://github.com/ShashenNethmika/portfolio-website/actions/runs/44499146951), including a clean frozen install, TypeScript, lint, 31 unit tests, the static production build, 62 Linux Chromium browser tests and the production dependency audit. The deploy job succeeded. GitHub Pages now uses the Actions build source. Both `main` and `codex/portfolio-lab-migration` contain the release. The original unrelated histories were joined through a history-preserving merge; no force push was needed.
+
+After deployment, a real browser verified **14 live entry points**, including all six stations, dedicated portfolio pages, `/index.html`, `/pages/contact.html` and `/pages/lab.html`. All returned HTTP 200 with expected content. The original 960px portrait decoded successfully, mobile navigation and project dialogs worked, legacy-index client navigation worked, and no console or page errors were observed. Sitemap, robots and portrait requests also returned successfully. Four focused desktop/mobile regressions verified normal/reduced-motion filtering and project dialogs after the final gallery change. The exact URL inventory and verification timestamp are in [qa-results.json](qa-results.json).
+
+Final production Lighthouse performance: **91 desktop median** (runs: 91, 93, 73) and **84 mobile median** (runs: 67, 85, 84). Accessibility, best practices and SEO scored **100** in every final run. Mobile LCP was 1.7 s, 1.5 s, 1.9 s; mobile TBT was 2,830 ms, 460 ms, 320 ms. CLS was 0. These measurements supersede the earlier local scores for the final release and are not field data. Complete reports are at `.lighthouseci/final-live-{desktop,mobile}-{1,2,3}.{html,json}`.
+
+The complete created-component and retired-source path lists are in [SOURCE_INVENTORY.md](SOURCE_INVENTORY.md).
+
+## Remaining issues and unconfigured features
+
+- **The 90+ mobile Lighthouse performance target is not consistently achieved.** The final live median is 84. Variable main-thread blocking remains a performance limitation; the earlier local median of 90 must not be presented as the final live score. No functionality or accessibility checks were removed to improve scoring.
+- No contact-form delivery service, cloud authentication, database, cross-device saves or collaboration is configured. Contact uses the preserved email/WhatsApp and experiments persist locally. These require supplied service configuration or a server-capable host if requested later.
+- AI Cinema has no supplied dedicated repository/screenshot; its original artwork and profile link are preserved. No screenshot was fabricated.
+- Circuit and packet engines are explicitly educational. Sequential electronic simulation and real network traffic are outside this static edition.
+- Browser testing used Windows Edge and Linux Chromium with desktop/mobile emulation. Physical iOS/Android testing and real-user Core Web Vitals collection were not performed.

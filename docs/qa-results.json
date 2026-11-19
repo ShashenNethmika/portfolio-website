@@ -17,7 +17,8 @@
       "WCAG 2.2 AA"
     ],
     "consoleErrors": 0,
-    "navigationRegressionPassed": 6
+    "navigationRegressionPassed": 6,
+    "galleryMotionRegressionPassed": 4
   },
   "typecheck": "passed: next typegen and tsc --noEmit",
   "lint": "passed: zero warnings",
@@ -65,6 +66,187 @@
       "accessibility": 100,
       "bestPractices": 100,
       "seo": 100
-    }
+    },
+    "production": {
+      "commit": "6dbbd80bf402bf4c565913c264879cca7fe9cb0f",
+      "method": "Three sequential isolated Lighthouse runs per device preset against deployed GitHub Pages, simulated throttling in headless Edge. Median performance is reported; not field Core Web Vitals.",
+      "mobile": {
+        "median": 84,
+        "runs": [
+          {
+            "scores": {
+              "performance": 67,
+              "accessibility": 100,
+              "best-practices": 100,
+              "seo": 100,
+              "agentic-browsing": 100
+            },
+            "lcp": "1.7 s",
+            "tbt": "2,830 ms",
+            "cls": "0",
+            "fetchTime": "2026-11-19T09:48:01.438Z"
+          },
+          {
+            "scores": {
+              "performance": 85,
+              "accessibility": 100,
+              "best-practices": 100,
+              "seo": 100,
+              "agentic-browsing": 100
+            },
+            "lcp": "1.5 s",
+            "tbt": "460 ms",
+            "cls": "0",
+            "fetchTime": "2026-11-19T09:48:59.352Z"
+          },
+          {
+            "scores": {
+              "performance": 84,
+              "accessibility": 100,
+              "best-practices": 100,
+              "seo": 100,
+              "agentic-browsing": 100
+            },
+            "lcp": "1.9 s",
+            "tbt": "320 ms",
+            "cls": "0",
+            "fetchTime": "2026-11-19T09:49:57.175Z"
+          }
+        ]
+      },
+      "desktop": {
+        "median": 91,
+        "runs": [
+          {
+            "scores": {
+              "performance": 91,
+              "accessibility": 100,
+              "best-practices": 100,
+              "seo": 100,
+              "agentic-browsing": 100
+            },
+            "lcp": "0.8 s",
+            "tbt": "100 ms",
+            "cls": "0",
+            "fetchTime": "2026-11-19T09:48:28.095Z"
+          },
+          {
+            "scores": {
+              "performance": 93,
+              "accessibility": 100,
+              "best-practices": 100,
+              "seo": 100,
+              "agentic-browsing": 100
+            },
+            "lcp": "0.5 s",
+            "tbt": "10 ms",
+            "cls": "0",
+            "fetchTime": "2026-11-19T09:49:27.249Z"
+          },
+          {
+            "scores": {
+              "performance": 73,
+              "accessibility": 100,
+              "best-practices": 100,
+              "seo": 100,
+              "agentic-browsing": 100
+            },
+            "lcp": "1.0 s",
+            "tbt": "460 ms",
+            "cls": "0.001",
+            "fetchTime": "2026-11-19T09:50:28.617Z"
+          }
+        ]
+      },
+      "remainingTarget": "The 90+ mobile performance target has not been reached consistently. Main-thread blocking remains variable."
+    },
+    "localMeasurementScope": "Local measurements above preceded the final gallery feature deferral; current release measurements are production below."
+  },
+  "deployment": {
+    "commit": "6dbbd80bf402bf4c565913c264879cca7fe9cb0f",
+    "workflow": "https://github.com/ShashenNethmika/portfolio-website/actions/runs/44499146951",
+    "workflowConclusion": "success",
+    "buildSource": "GitHub Actions",
+    "url": "https://shashennethmika.github.io/portfolio-website/",
+    "verifiedRoutes": [
+      {
+        "route": "https://shashennethmika.github.io/portfolio-website/",
+        "status": 200,
+        "heading": "Shashen\nNethmika."
+      },
+      {
+        "route": "https://shashennethmika.github.io/portfolio-website/about/",
+        "status": 200,
+        "heading": "The person behind the pixels."
+      },
+      {
+        "route": "https://shashennethmika.github.io/portfolio-website/projects/",
+        "status": 200,
+        "heading": "Selected work."
+      },
+      {
+        "route": "https://shashennethmika.github.io/portfolio-website/contact/",
+        "status": 200,
+        "heading": "Good things start\nwith a conversation."
+      },
+      {
+        "route": "https://shashennethmika.github.io/portfolio-website/lab/",
+        "status": 200,
+        "heading": "The Lab."
+      },
+      {
+        "route": "https://shashennethmika.github.io/portfolio-website/pages/contact.html",
+        "status": 200,
+        "heading": "Good things start\nwith a conversation."
+      },
+      {
+        "route": "https://shashennethmika.github.io/portfolio-website/pages/lab.html",
+        "status": 200,
+        "heading": "The Lab."
+      },
+      {
+        "route": "https://shashennethmika.github.io/portfolio-website/lab/logic-circuit/",
+        "status": 200,
+        "heading": "Logic Circuit Studio"
+      },
+      {
+        "route": "https://shashennethmika.github.io/portfolio-website/lab/binary-explorer/",
+        "status": 200,
+        "heading": "Binary & Digital Systems"
+      },
+      {
+        "route": "https://shashennethmika.github.io/portfolio-website/lab/particle-sandbox/",
+        "status": 200,
+        "heading": "Particle & Wave Sandbox"
+      },
+      {
+        "route": "https://shashennethmika.github.io/portfolio-website/lab/glass-studio/",
+        "status": 200,
+        "heading": "Glass & UI Generator"
+      },
+      {
+        "route": "https://shashennethmika.github.io/portfolio-website/lab/network-studio/",
+        "status": 200,
+        "heading": "Network & Data Flow"
+      },
+      {
+        "route": "https://shashennethmika.github.io/portfolio-website/lab/motion-studio/",
+        "status": 200,
+        "heading": "Motion & SVG Studio"
+      },
+      {
+        "route": "https://shashennethmika.github.io/portfolio-website/index.html",
+        "status": 200,
+        "heading": "Shashen Nethmika."
+      }
+    ],
+    "consoleErrors": 0,
+    "mobileNavigation": "passed",
+    "projectDialog": "passed",
+    "portrait": "original 960px WebP loaded",
+    "legacyIndexNavigation": "passed",
+    "checkedAt": "2026-11-19T09:47:40.626Z",
+    "ciBrowserTestsPassed": 62,
+    "ciUnitTestsPassed": 31
   }
 }

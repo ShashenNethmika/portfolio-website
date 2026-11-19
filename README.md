@@ -53,10 +53,13 @@ Saved work stays in this browser's storage. It is not synchronized or backed up.
 
 Production is `https://shashennethmika.github.io/portfolio-website/`. `next.config.ts` sets static export, `/portfolio-website` base path, trailing slashes, and static-compatible images. Exported files live in ignored `out/`.
 
-1. Review and approve the migration branch before merging. Nothing in local development publishes the website.
-2. In the repository's Settings → Pages, choose **GitHub Actions** as the build source. The audited production repository previously served the root of `main` directly.
-3. After approval, merge the migration into `main`. `.github/workflows/pages.yml` installs the locked packages, checks types/lint/unit tests, builds, runs desktop/mobile E2E, audits production dependencies, uploads `out/`, and deploys the artifact only after validation passes.
-4. Check every page, all six workspace direct URLs, legacy `/index.html`, `/pages/contact.html`, `/pages/lab.html`, portrait, sitemap and robots on the deployed URL. Run a production Lighthouse audit and check browser errors. Local export tests do not replace this post-deployment check.
+The authorized migration is deployed. GitHub Pages is configured to use **GitHub Actions**. The [verified release workflow](https://github.com/ShashenNethmika/portfolio-website/actions/runs/44499146951) passed all checks and deployed the exported artifact. See [the release report](docs/MIGRATION_REPORT.md#verified-production-release--19-november-2026) for live route and Lighthouse results.
+
+For subsequent releases:
+
+1. Run the validation commands above and review the change.
+2. Push the approved change to `main`. `.github/workflows/pages.yml` installs locked packages, checks types/lint/unit tests, builds, runs desktop/mobile E2E, audits production dependencies, and deploys `out/` only after validation passes. Pull requests validate without deploying.
+3. Check the Actions run and every deployed page, all six station direct URLs, legacy `/index.html`, `/pages/contact.html`, `/pages/lab.html`, portrait, sitemap and robots. Check browser errors and production Lighthouse results.
 
 A future custom domain requires revisiting `basePath`, asset helper, canonical URLs and sitemap. Server actions, API routes, private keys and database connections cannot run on GitHub Pages. A real contact form or cross-device saves would require a separately configured service or server-capable hosting; the current contact UI uses the preserved email and WhatsApp.
 
@@ -67,4 +70,4 @@ A future custom domain requires revisiting `basePath`, asset helper, canonical U
 - [Migration report and QA results](docs/MIGRATION_REPORT.md)
 - [Genuine project image provenance](docs/project-image-provenance.md)
 
-The previous manually maintained site is preserved in the local Git snapshot and, after validation, under `legacy/`. It is not part of the exported application. Original font licensing is retained under `public/fonts/`; the repository's original MIT license is retained.
+The previous manually maintained site is preserved in Git history and under `legacy/`. It is not part of the exported application. Original font licensing is retained under `public/fonts/`; the repository's original MIT license is retained.
