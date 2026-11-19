@@ -1,122 +1,121 @@
-# Portfolio and engineering Lab migration
+# Portfolio and Lab migration report
 
-## Original architecture and preservation
+This report records the implemented migration, its source audit, the verified release and subsequent repository cleanup. Current setup and deployment instructions are in [README.md](../README.md); component boundaries and exact component paths are in [ARCHITECTURE.md](ARCHITECTURE.md).
 
-The local snapshot used three manually maintained HTML pages, ten stylesheets, three vanilla JavaScript entry points, CDN Three.js/GSAP/Lenis, a local font, portrait and brand mark. GitHub production had a different ES-module/Canvas version with an inline connected Signal Lab. Both were audited; see [AUDIT.md](AUDIT.md) for the source commits and defects.
+## Original application and audit
 
-Preserved Shashen Nethmika's identity, introduction, original 960×960 portrait, University of Ruhuna education, all six projects, project descriptions/repository links, email, WhatsApp and thirteen social/link destinations. No employment, awards or proficiency scores were invented. The original four connected Signal Lab challenges remain playable alongside the half-adder challenge. Existing project palette/timer previews remain available.
+Two actual implementations were inspected: local snapshot `d162fd9` and the original remote source `0cf3c3ea5901a270e2c247211fabfa79a7a798f5`. Their HTML, CSS, JavaScript, assets, navigation, contact destinations and interactive behavior were compared directly. README descriptions were not treated as evidence of working features.
 
-Terrain was absent from the inspected sources and is absent from the new application.
+The local app contained three HTML pages, ten stylesheets, three vanilla JavaScript entry points, CDN Three.js/GSAP/Lenis, an original 960×960 portrait, a brand mark and a locally licensed font. Remote production used ES modules/Canvas and a connected Signal Lab with four challenges. No contact-form service, backend or Terrain implementation was found.
 
-## New stack and architecture
-
-- Next.js 16.4.6 App Router, React 19.3.1, TypeScript 6.0.3 in strict mode.
-- Tailwind CSS 4.3.5, reusable TSX components and a small global token/effect stylesheet.
-- Three.js, React Three Fiber and Drei for optional desktop constellation rendering.
-- GSAP/ScrollTrigger and Lenis for portfolio scrolling; Motion for project filtering. Distinct engines own distinct effects.
-- Zustand dashboard state, Zod runtime validation, browser-only experiment persistence.
-- ESLint 9.39.5, Vitest 5.1.1, Playwright 1.65.1, axe-core accessibility audits and Lighthouse.
-
-TypeScript 7 and ESLint 10 were initially selected from stable tags, then replaced with the latest compatible 6.0/9 releases after peer checks and real compiler/linter execution showed their incompatibility with the installed Next lint plugins. The finalized lockfile records exact versions. No backend, account system, database or secret-bearing contact service is needed.
-
-`src/app` holds build-time Server Components and metadata. Interaction is confined to client components. Each Lab UI loads independently through `src/components/lab/workspace.tsx`. Pure engines remain separate from controls. See [ARCHITECTURE.md](ARCHITECTURE.md) for extension boundaries.
-
-## Source structure and principal components
-
-| Path | Responsibility |
+| Audit finding | Implemented replacement |
 | --- | --- |
-| `src/app/layout.tsx`, `src/app/page.tsx` | Shared shell, SEO and portfolio composition |
-| `src/app/about`, `src/app/projects`, `src/app/contact` | Dedicated portfolio routes |
-| `src/app/lab/[station]/page.tsx` | Six statically generated station routes |
-| `src/app/pages/*.html/page.tsx` | Original entry-point compatibility |
-| `src/components/navigation/navigation.tsx` | Mobile navigation, active route/section, Escape handling |
-| `src/components/hero/{hero,constellation}.tsx` | Prominent real portrait, tilt and adaptive 3D field |
-| `src/components/projects/{project-grid,project-art}.tsx` | Filters, native dialog, screenshots and interactive previews |
-| `src/components/about/about-content.tsx` | Audited education, interests and categorized technologies |
-| `src/components/contact/contact-content.tsx` | Email copy, WhatsApp and original social links |
-| `src/components/lab/{lab-dashboard,station-art,workspace}.tsx` | Search, filters, pins/history/saves, previews and workspace shell |
-| `src/components/animations/experience.tsx` | Optional scroll enhancement and cursor cleanup |
-| `src/features/logic-circuit` | Seven gates, DAG editor, ports, validation, truth tables and challenges |
-| `src/features/binary-explorer` | BigInt registers, conversions, signed arithmetic and flags |
-| `src/features/particle-sandbox` | Spring/wave physics, spatial hash and visibility-aware Canvas |
-| `src/features/glass-studio` | Design controls, local presets and exact CSS/variables/TSX exports |
-| `src/features/network-studio` | Topology, packet journey, subnet calculator and OSI/TCP-IP lessons |
-| `src/features/motion-studio` | SVG shapes, transform keys, timeline, presets and safe code exports |
-| `src/config`, `src/stores`, `src/lib` | Audited data, shared state, save validation and asset paths |
-| `public/fonts`, `public/images` | Original licensed assets and verified WebP project screenshots |
-| `tests/unit`, `src/features/*/engine.test.ts`, `tests/e2e` | Algorithm boundaries, interaction and browser verification |
+| Simulated loading counter and globally downloaded CDN engines | Immediate static content, packaged dependencies and deferred optional graphics |
+| Independent animation loops without complete teardown | Route cleanup and visibility/pause-aware simulation loops |
+| Quadratic particle connections and unguarded zero-distance pointer force | Spatial hashing and bounded force calculations |
+| Isolated logic cards and limited binary controls | Connected combinational circuits and fixed-width BigInt registers |
+| Invalid glass shadow alpha and differing preview/export styles | One validated style generator for both preview and exports |
+| Unsupported skill percentages | Factual technology categories without invented proficiency scores |
+| Repeated headers and inconsistent page navigation | Shared responsive React navigation and original URL compatibility |
+| No project UI screenshots in the original assets | Five verified captures of the genuine deployed applications |
 
-## Working feature scope
+## New stack and architectural decisions
 
-Logic supports actual multi-gate combinational graphs, 2–4 input gates, NOT/XNOR, port or inspector wiring, keyboard movement, live signal feedback, bounded truth tables, cycle/missing-input validation, named save/load, four original challenges, half-adder verification and opt-in audio.
+The source now uses Next.js 16.4.6 App Router, React 19.3.1, TypeScript 6.0.3 strict mode and Tailwind CSS 4.3.5. Other locked dependencies provide Three.js/R3F/Drei, GSAP/ScrollTrigger, Lenis, Motion, Zustand and Zod. ESLint, Vitest, Playwright, axe-core and Lighthouse support quality checks. `package.json` and `pnpm-lock.yaml` are authoritative for exact versions.
 
-Binary supports 8/16/32-bit A/B editors, decimal/hex/octal/ASCII bytes, signed/unsigned interpretation, two's complement, AND/OR/XOR/NOT, logical/arithmetic shifts, increment/decrement, addition/subtraction, unsigned carry, borrow and signed overflow.
+Pages are statically generated. Interaction stays in Client Components; six independent workspaces load dynamically. Pure simulation engines are separate from React presentation. Animation engines own different tasks, with optional WebGL and project-filter features deferred until needed. There is no unnecessary backend or database.
 
-Particles support gravity, pointer attraction/repulsion, density, speed, amplitude/frequency, shockwaves, themes, mouse/touch, fullscreen, pause/reset, FPS, local setup saves, adaptive quality and real rendering suspension. Nearby connections use a spatial hash and DPR is capped.
+`next.config.ts` preserves GitHub Pages compatibility through static export, `/portfolio-website` base path, trailing slashes and static images. `scripts/prepare-export.mjs` adds aliases for observed Next segment-payload paths that otherwise produced navigation 404s on static hosting. The normal build includes this step.
 
-Glass supports surface/scene controls, built-in and named presets, reduced-motion-aware tilt, blur/opacity/radius/border/glow/shadow/hue/saturation, exact shared preview/export styles, copy and downloads. Decorative backdrop objects are illustrative and intentionally excluded from exported surface styles.
+The full folder tree, created component inventory, calculation boundaries and extension points are maintained in [ARCHITECTURE.md](ARCHITECTURE.md).
 
-Network supports draggable/keyboard-editable computers, switches, routers and servers, cables, static routes, source/destination, animated or stepped packets, loop/unreachable validation, accurate IPv4/CIDR/mask/broadcast/host math including `/0`, `/31` and `/32`, binary representation, lessons and a subnet challenge.
+## Preserved content and implemented features
 
-Motion supports five shape types, layers, direct/keyboard movement, position/rotation/scale/opacity keyframes, seeking, play/pause, duration retiming, presets, preview speed/loop controls, local saves, a composition challenge, static/animated SVG and TSX exports.
+Shashen Nethmika's original portrait, ICT undergraduate/creative-developer introduction, University of Ruhuna education, school education, interests, technologies, six projects, descriptions, repository destinations, email, WhatsApp and social links are preserved. No employment, awards, qualifications or skill percentages were fabricated. The original font and repository licenses remain. Terrain is absent from the application.
 
-## Assets and legacy source
+Portfolio work includes the responsive hero and portrait tilt, optional adaptive desktop constellation, categorized About/skills content, genuine project screenshots, category filters, native details dialogs, original palette/timer previews, email copy, social/WhatsApp links and accessible mobile navigation. Dedicated About, Projects, Contact and Lab pages work alongside original homepage section links and HTML entry points.
 
-Five genuine deployed applications were captured without mocked content, visually inspected, encoded to WebP, and integrated into project cards. Provenance, source commits, capture actions, file hashes and byte sizes are in [project-capture-manifest.json](project-capture-manifest.json). There is no supplied dedicated AI Cinema repository/screenshot; its original creative artwork and profile repository link remain, rather than fabricating evidence.
+| Station | Working functionality |
+| --- | --- |
+| Logic Circuit Studio | Seven gates, 2–4 input gates, actual multi-gate wiring through ports or inspector, pointer/keyboard movement, live signals, cycle/input validation, truth tables, save/load/reset, explanations, original four Signal challenges, half-adder verification and opt-in sound |
+| Binary & Digital Systems | A/B 8/16/32-bit registers, decimal/hex/octal/ASCII, signed/unsigned interpretation, two's complement, bitwise operations, shifts, increment/decrement, arithmetic, carry/borrow/overflow and local saves |
+| Particle & Wave Sandbox | Gravity, attraction/repulsion, density/speed, wave amplitude/frequency, shockwaves, themes, pointer/touch, pause/reset/fullscreen, FPS, adaptive quality, DPR control, spatial grid, local setup saves and rendering suspension |
+| Glass & UI Generator | Background/gradient, blur, opacity, radius, border, hue/saturation, glow/shadow, tilt, presets/custom presets, live preview and matching CSS/variables/TSX copy/download |
+| Network & Data Flow | Draggable/keyboard topology with routers/switches/computers/servers, cables, static routes, source/destination, animated/stepped educational packets, loop/unreachable validation, IPv4/CIDR/mask/broadcast/usable-host math, binary display, OSI/TCP-IP lessons and subnet challenge |
+| Motion & SVG Studio | Five shape types, layers, pointer/keyboard editing, position/rotation/scale/opacity keys, seeking/play/pause, duration retiming, presets, speed/loop controls, local saves, composition challenge and validated SVG/TSX exports |
 
-Legacy HTML/CSS/JS is preserved under `legacy/` for rollback, outside Next's source and exported output. The original font license and repository MIT license are retained. No genuine content was discarded. Root manual pages are retired as primary source. Retired paths are index.html, pages/contact.html, pages/lab.html, assets/css/*, assets/js/*, assets/fonts/* and assets/images/*; their exact originals now live at legacy/index.html, legacy/pages/* and legacy/assets/*.
+The dashboard supplies search, categories, difficulty, distinct previews, favorites, recent stations, saved-experiment detection and meaningful challenge progress. Workspaces include instructions, help, controls and live results without loading unrelated simulations.
 
-## Performance, accessibility and security
+## Asset provenance
 
-No fake loading counter or globally downloaded CDN engines. The 45 KB portrait is prioritized with explicit dimensions, the font is self-hosted, project images are lazy-loaded, and static pages are generated at build time. WebGL loads on first desktop pointer activity; touch/reduced-motion visitors keep the lightweight field. Workspaces are code-split, rendering stops offscreen/hidden/paused, event handlers clean up, and optional animation failure falls back to native navigation. The project-filter layout engine now loads when its controls enter the viewport or receive interaction, using Motion LazyMotion. Initial cards remain server-rendered and readable.
+Five real deployed project UIs were captured, visually checked and encoded to WebP. The files total 279,796 bytes compared with 1,739,652 bytes for the lossless captures, about 84% smaller. The original portrait remains 45,166 bytes. No generated portrait or fabricated screenshot was used.
 
-Accessibility fixes found through browser testing include native project-button names, explicit range labels (nested output elements had captured implicit labels), larger separated circuit ports, readable muted text, named keyboard-scroll regions and preserved dialog focus. Navigation uses native links and the regular pointer remains available. No accessibility rule is suppressed to obtain passing results.
+[Project image provenance](project-image-provenance.md) records source repositories and capture prerequisites. [The capture manifest](project-capture-manifest.json) records URLs, inspected source SHAs, timestamps, actions, sizes and source-image hashes. AI Cinema retains its original artwork/profile link because no dedicated repository/screenshot was supplied.
 
-Stored content is Zod-validated and rendered as text/typed geometry. SVG export only accepts enumerated shapes and validated colors/numbers. No arbitrary HTML execution, secrets, sensitive browser storage or backend credentials. Production and full dependency audits found no known vulnerabilities; peer checks report no issues.
+## Legacy retirement and repository cleanup
 
-## Verification results
+The replacement was built and validated separately before publishing to `main`. The unrelated local and remote histories were joined with a history-preserving merge; no force push was required. Initial migration source was archived while the replacement was validated.
 
-- Strict TypeScript: passed as part of the production build.
-- Production static build: passed; all application routes, metadata, sitemap and robots generated.
-- Unit tests: 31 passed across eight test files.
-- ESLint: passed with zero warnings; standalone route type generation and `tsc --noEmit` passed.
-- Desktop/mobile Playwright: 62 passed, including 26 automated accessibility route audits (13 routes × two viewports). No console/page errors in interaction and normal-motion tests. Six focused navigation/WebGL regressions also passed after the final prefetch optimization.
-- Full and production dependency audits: no known vulnerabilities. Peer checks: no issues.
-- Lighthouse desktop/mobile measurements and the verified production release are recorded below.
-- Real-browser checks cover portrait decoding, project dialog/filtering, all six stations, saves, clipboard, SVG parsing, original routes, challenge progress, invalid persistence, normal/reduced motion and Canvas rendering suspension.
+After successful deployment, the owner's cleanup request retired the duplicate `legacy/` directory from the current tree. Every original archive file remains recoverable in [commit cd19a41](https://github.com/ShashenNethmika/portfolio-website/tree/cd19a41/legacy). The portrait, mark, font and OFL license in `public/` were hash-compared with that archive before removal and were unchanged.
 
-## GitHub Pages deployment
+Retired archived files:
 
-`next.config.ts` configures `output: 'export'`, repository `basePath`, trailing slashes and static images. `pnpm build` also runs `scripts/prepare-export.mjs`, which adds flat aliases for the nested segment-prefetch payloads emitted by Next 16. This was required to eliminate observed browser 404s on a host without rewrite support; original payloads are retained.
+```text
+legacy/README.original.md
+legacy/index.html
+legacy/pages/contact.html
+legacy/pages/lab.html
+legacy/assets/css/about.css
+legacy/assets/css/animations.css
+legacy/assets/css/contact-page.css
+legacy/assets/css/contact.css
+legacy/assets/css/cursor.css
+legacy/assets/css/hero.css
+legacy/assets/css/lab-page.css
+legacy/assets/css/lab.css
+legacy/assets/css/main.css
+legacy/assets/css/projects.css
+legacy/assets/js/app.js
+legacy/assets/js/contact.js
+legacy/assets/js/lab.js
+legacy/assets/fonts/OFL-Space-Grotesk.txt
+legacy/assets/fonts/space-grotesk.woff
+legacy/assets/images/mark.png
+legacy/assets/images/profile.webp
+```
 
-`.github/workflows/pages.yml` installs the frozen lockfile, checks types/lint/unit tests, builds the actual `out/` artifact, runs desktop/mobile browser audits, audits dependencies and only then deploys. GitHub Pages must use the Actions build source. The static preview server mirrors the repository base path; exported routes are tested directly.
+Additional cleanup removes the unreachable `src/components/ui/lab-controls.tsx`, the unused `downloadText` export in `src/lib/utils.ts`, unused `.text-outline`/`.lab-input` styles, and the comment-only `.env.example`. Generated `next-env.d.ts` is no longer tracked and is regenerated by Next. Redundant `docs/AUDIT.md` and `docs/SOURCE_INVENTORY.md` are consolidated into this report and the architecture inventory. Obsolete ignored audit downloads, temporary scripts, package archives and partial test artifacts are removed; useful current assets, all required dependencies and the three maintenance/build scripts are retained.
 
-## Deliberate boundaries
+## Verification evidence — 19 November 2026 release
 
-This is an educational combinational circuit and networking environment, not a sequential electronics solver or real network stack. Particle physics is a creative spring/wave model, not a fluid solver. Motion uses linear keyframes and native SMIL exports. Browser saves remain on this device; no cloud backup/auth/collaboration is claimed. A real contact form and backend services are not configured because no provider is supplied. AI Cinema retains artwork rather than an invented screenshot.
+Application release `6dbbd80bf402bf4c565913c264879cca7fe9cb0f` passed the [complete GitHub Actions workflow](https://github.com/ShashenNethmika/portfolio-website/actions/runs/44499146951) and deployed successfully:
 
-## Local measurements before final gallery deferral — 19 November 2026
+- Clean frozen dependency installation, strict TypeScript, zero-warning ESLint and production static build.
+- 31 unit tests across eight files and 62 desktop/mobile browser tests.
+- Automated accessibility checks across 13 routes at two viewports, plus normal/reduced-motion interactions, save validation, keyboard controls, clipboard, SVG parsing and actual particle-frame suspension checks.
+- No known vulnerabilities in production/full dependency audits; no peer dependency issues.
+- Four focused gallery/portrait regressions passed after the final lazy-animation change.
+- A post-deployment browser verified 14 entry points, all with HTTP 200 and expected content, with no console/page errors. Mobile navigation, project dialog, legacy-index navigation, original portrait decoding, sitemap and robots also passed.
 
-Lighthouse desktop performance **93**; mobile performance **90 median** across three isolated simulated-mobile runs (**90, 80, 91**). Accessibility, best practices and SEO scored **100**. Mobile LCP was 1.2–1.3 seconds and CLS was 0; TBT varied from 320–810 ms. Desktop LCP was 1.6 seconds and TBT 70 ms. These are lab measurements against the real static export, not field Core Web Vitals or a guarantee for every device/network. Earlier diagnostic runs exposed deferred 3D and prefetch costs; desktop WebGL now waits for pointer activity, mobile keeps the static field, route prefetch is intentional, and hero entrances do not wait on scroll libraries.
+The exact route list, release SHA, workflow link, timestamps and measurements are retained in [qa-results.json](qa-results.json). Cleanup validation is recorded separately there so these original performance results are not misrepresented as a fresh measurement.
 
-The five verified WebP screenshots total **279,796 bytes**, versus **1,739,652 bytes** for the original lossless captures (about **84% smaller**). No profile replacement or image-generation service was used.
+## Performance and accessibility
 
-Machine-readable results are in [qa-results.json](qa-results.json). Full local HTML/JSON Lighthouse reports remain under `.lighthouseci/`; the Playwright HTML report is `playwright-report/index.html`. The verified production release is recorded below.
+The application prioritizes the real portrait, self-hosts its font, lazy-loads project imagery, splits stations, defers optional desktop WebGL and project layout features, disables automatic cross-route prefetch and stops hidden simulations. Event handlers and animation loops clean up. Accessibility improvements include explicit control labels, separated circuit ports, readable muted colors, keyboard-scroll regions and native dialog focus behavior. No accessibility rules were suppressed to obtain passing results.
 
-## Verified production release — 19 November 2026
+Final production Lighthouse performance medians were **91 desktop** (91, 93, 73) and **84 mobile** (67, 85, 84), from three sequential isolated headless Edge measurements per preset with simulated throttling. Accessibility, best practices and SEO scored **100** in every run. Mobile LCP was 1.7/1.5/1.9 seconds, TBT 2,830/460/320 ms, and CLS 0. These are dated lab measurements against the released artifact, not real-user Core Web Vitals. Earlier local scores are not the final live score.
 
-The user-authorized `main` release `6dbbd80bf402bf4c565913c264879cca7fe9cb0f` passed the [complete GitHub Actions workflow](https://github.com/ShashenNethmika/portfolio-website/actions/runs/44499146951), including a clean frozen install, TypeScript, lint, 31 unit tests, the static production build, 62 Linux Chromium browser tests and the production dependency audit. The deploy job succeeded. GitHub Pages now uses the Actions build source. Both `main` and `codex/portfolio-lab-migration` contain the release. The original unrelated histories were joined through a history-preserving merge; no force push was needed.
+Generated Lighthouse/Playwright reports are ignored and are not promised on a fresh clone. The README documents how to reproduce them; the committed JSON evidence and linked successful CI run remain available.
 
-After deployment, a real browser verified **14 live entry points**, including all six stations, dedicated portfolio pages, `/index.html`, `/pages/contact.html` and `/pages/lab.html`. All returned HTTP 200 with expected content. The original 960px portrait decoded successfully, mobile navigation and project dialogs worked, legacy-index client navigation worked, and no console or page errors were observed. Sitemap, robots and portrait requests also returned successfully. Four focused desktop/mobile regressions verified normal/reduced-motion filtering and project dialogs after the final gallery change. The exact URL inventory and verification timestamp are in [qa-results.json](qa-results.json).
+## Deployment and remaining limitations
 
-Final production Lighthouse performance: **91 desktop median** (runs: 91, 93, 73) and **84 mobile median** (runs: 67, 85, 84). Accessibility, best practices and SEO scored **100** in every final run. Mobile LCP was 1.7 s, 1.5 s, 1.9 s; mobile TBT was 2,830 ms, 460 ms, 320 ms. CLS was 0. These measurements supersede the earlier local scores for the final release and are not field data. Complete reports are at `.lighthouseci/final-live-{desktop,mobile}-{1,2,3}.{html,json}`.
+The site is published at [shashennethmika.github.io/portfolio-website](https://shashennethmika.github.io/portfolio-website/). GitHub Pages uses the Actions build source. The workflow validates the exported artifact before deployment. [README.md](../README.md#deploy-to-github-pages) provides release and post-deployment checks.
 
-The complete created-component and retired-source path lists are in [SOURCE_INVENTORY.md](SOURCE_INVENTORY.md).
+- **The mobile 90+ Lighthouse target is not consistently achieved.** Main-thread blocking remains variable; the recorded live median is 84.
+- No contact-form service, authentication, database, cloud saves or collaboration is configured. Email/WhatsApp and browser-local persistence work without those services.
+- Logic is combinational and networking is an explicitly educational visualization; sequential electronics and real network traffic are outside this edition.
+- Motion uses linear keyframes and native SMIL exports; particles use a creative spring/wave model.
+- AI Cinema has no supplied dedicated screenshot/repository.
+- Windows Edge and Linux Chromium, with desktop/mobile emulation, were tested. Physical iOS/Android testing and real-user performance collection were not performed.
 
-## Remaining issues and unconfigured features
-
-- **The 90+ mobile Lighthouse performance target is not consistently achieved.** The final live median is 84. Variable main-thread blocking remains a performance limitation; the earlier local median of 90 must not be presented as the final live score. No functionality or accessibility checks were removed to improve scoring.
-- No contact-form delivery service, cloud authentication, database, cross-device saves or collaboration is configured. Contact uses the preserved email/WhatsApp and experiments persist locally. These require supplied service configuration or a server-capable host if requested later.
-- AI Cinema has no supplied dedicated repository/screenshot; its original artwork and profile link are preserved. No screenshot was fabricated.
-- Circuit and packet engines are explicitly educational. Sequential electronic simulation and real network traffic are outside this static edition.
-- Browser testing used Windows Edge and Linux Chromium with desktop/mobile emulation. Physical iOS/Android testing and real-user Core Web Vitals collection were not performed.
+Server-dependent features should introduce a real service and server-side validation only when required. Private credentials must stay on a server-capable host; they cannot be put in the GitHub Pages client or browser storage.

@@ -1,56 +1,102 @@
-# Portfolio and Lab architecture
+# Architecture
 
-## Runtime boundaries
+## Rendering and deployment
 
-Next.js App Router statically renders layout, page headings, metadata, About, and the site structure during `next build`. No Node runtime, database or authentication is required after export. React client components own user interaction. Each workspace is a separate dynamic import; simulation code is not loaded as part of the homepage.
+Next.js App Router generates a static application during `pnpm build`. Server Components compose page structure, content and metadata at build time. Client Components own browser interaction; no server runtime or database is required after export.
 
-The homepage portrait is the original 45 KB WebP with explicit dimensions and priority loading. Space Grotesk is self-hosted with `next/font/local`, retaining its license. Tailwind provides component styling; the small global stylesheet contains tokens, browser defaults, focus states, reduced-motion and shared special effects. A pointer-activated, feature-detected desktop React Three Fiber constellation is optional enhancement. A static CSS grid remains readable without WebGL. Its capped 28/65 points make a small pairwise connection pass acceptable; the larger particle sandbox uses spatial hashing instead.
+`next.config.ts` sets `output: 'export'`, `/portfolio-website` as the base path, trailing slashes and static-compatible images. The build then runs `scripts/prepare-export.mjs` to add flat aliases for nested Next segment payloads. These aliases prevent observed client-navigation 404s on GitHub Pages, which supplies no application rewrite server. `scripts/serve.mjs` previews the actual exported files beneath the same base path.
 
-GSAP/ScrollTrigger owns scroll-linked reveal transforms, Lenis owns desktop wheel smoothing on portfolio routes, and Motion owns project filtering layout. Workspaces retain native scrolling. Effects clean up on route changes. No element has two animation engines controlling the same transform. CSS handles hover and small transitions. Reduced-motion disables the optional 3D and smooth scrolling and starts the particle simulation paused.
+`main` is deployed through `.github/workflows/pages.yml`. Type checking, lint, unit tests, the production build, browser tests and dependency audit must pass before the Pages deploy job. Only `out/` is published. Source, documentation, test reports and dependencies are not uploaded as website files.
 
-## Source layout
+## Source map
 
 ```text
 src/
-  app/                      # Static App Router pages and metadata
-    about/ projects/ contact/ lab/[station]/
-    pages/contact.html/     # Original route compatibility
+  app/                         Static pages, layout, metadata, sitemap and robots
+    about/ contact/ projects/
+    lab/[station]/             Six routes generated from the station registry
+    pages/contact.html/        Original URL compatibility
     pages/lab.html/
   components/
     about/ animations/ contact/ hero/ lab/
     layout/ navigation/ projects/ ui/
-  config/                   # Audited profile, projects, socials and station registry
-  features/
-    logic-circuit/          # Connected DAG evaluation and circuit editor
-    binary-explorer/        # Fixed-width BigInt number systems
-    particle-sandbox/       # Adaptive Canvas physics and spatial grid
-    glass-studio/           # Shared preview/export styles
-    network-studio/         # IPv4 math, topology, educational forwarding
-    motion-studio/          # Typed SVG model, interpolation, safe export
-  lib/                      # Asset paths and download utility
-  stores/                   # Zustand dashboard history/pins/progress
+  config/                      Profile/project data and typed station registry
+  features/                    One UI and pure engine per experiment
+    logic-circuit/ binary-explorer/ particle-sandbox/
+    glass-studio/ network-studio/ motion-studio/
+  lib/                         Base-path assets and validation of saved experiments
+  stores/                      Dashboard history, favorites and challenge progress
 public/
-  fonts/ images/            # Original assets and genuine project captures
-tests/
-  unit/                     # Gate and binary boundary tests
-  e2e/                      # Desktop/mobile Playwright + axe
-scripts/                    # Base-path static preview and image capture
-.github/workflows/pages.yml # Validated static artifact deployment
-docs/                       # Audit, architecture, migration and QA results
+  fonts/ images/               Original assets, licenses and project screenshots
+scripts/                       Static preview, export aliases and image capture
+tests/unit/                    Logic, binary, persistence and challenge tests
+tests/e2e/                     Portfolio, routes, workspaces, rendering and axe checks
+docs/                          Architecture, migration and dated verification evidence
 ```
 
-Simulation engines are pure TypeScript, separated from React, and exercised by meaningful boundary tests. Circuit evaluation rejects feedback and invalid/missing inputs; the UI explicitly describes the combinational-only scope. Truth tables are bounded to eight switches and 256 rows. Editors bound graph/shape sizes, positions and exports. SVG is generated only from a Zod-validated schema with enumerated shape types and hex colors; arbitrary markup cannot enter the output.
+Feature engine tests also live beside `src/features/*/engine.ts`. Configuration remains typed where supported. Versions are pinned in `package.json` and `pnpm-lock.yaml`.
 
-Binary operations mask to a selected 8/16/32-bit width. Unsigned carry, subtraction borrow, and signed overflow are distinct flags. Network arithmetic uses exact nonnegative numbers up to 2^32 rather than signed JS bitwise operations. `/31` is point-to-point per RFC 3021; `/32` is a single host route. Packet journeys are an educational visualization with configured static routes and simplified shortest-path fallback, explicitly not real traffic, ARP, VLANs, or a complete IP stack.
+## Component inventory
 
-## Browser persistence
+Paths below are relative to `src/components/`:
 
-Zustand owns recent stations, pinned favorites and completed challenge IDs, with manual post-mount hydration to avoid server/client mismatches. Workspaces own their experiment schemas and browser-storage adapters. All input from localStorage is parsed and validated; storage failures do not break the editor. No sensitive information is stored. Browser storage is local to this origin and device and can be cleared by the browser. It is not a cloud backup.
+| Area | Components |
+| --- | --- |
+| About and contact | `about/about-content.tsx`, `contact/contact-content.tsx` |
+| Site shell | `navigation/navigation.tsx`, `layout/footer.tsx` |
+| Hero | `hero/hero.tsx`, `hero/constellation.tsx` |
+| Portfolio projects | `projects/project-grid.tsx`, `projects/project-art.tsx` |
+| Lab dashboard and shell | `lab/lab-dashboard.tsx`, `lab/station-art.tsx`, `lab/workspace.tsx` |
+| Shared interaction | `animations/experience.tsx`, `ui/magnetic-link.tsx`, `ui/site-link.tsx`, `ui/section-heading.tsx` |
 
-## Extension points
+The separately loaded `projects/project-motion-features.ts` supplies Motion's filtering/layout features.
 
-A backend is deliberately absent. Add Node/PostgreSQL/Prisma or Supabase only when a real feature such as cross-device saves, collaboration or authentication is introduced. Keep data-access adapters behind feature contracts, validate on the server again, and put private credentials in server-side environment variables. That deployment would require a server-capable host such as Vercel or Cloudflare and a reviewed privacy/auth model. The GitHub Pages edition must retain browser-only features and cannot host API routes, server actions, private database connections or secret-bearing email services. Contact therefore uses verified mailto/WhatsApp links and a copyable email.
+| Feature directory under `src/features/` | React components |
+| --- | --- |
+| `logic-circuit/` | `LogicStudio.tsx`, `SignalChallenges.tsx` |
+| `binary-explorer/` | `BinaryExplorer.tsx` |
+| `particle-sandbox/` | `ParticleSandbox.tsx` |
+| `glass-studio/` | `GlassStudio.tsx` |
+| `network-studio/` | `NetworkStudio.tsx`, `IPCalculator.tsx`, `NetworkEducation.tsx` |
+| `motion-studio/` | `MotionStudio.tsx` |
 
-## Deployment safety
+`src/components/lab/workspace.tsx` dynamically imports only the selected station. Keep calculations and serialization in each feature's `engine.ts`, rather than combining unrelated simulations into the dashboard.
 
-Only `out/` is deployable. Legacy source is retained during replacement validation and excluded from Next's source tree. Migration work is on a separate local branch; nothing has been pushed. The workflow validates type checking, lint, unit tests, static build, E2E and dependency audit before a main-branch deployment job. Publication and post-deployment route tests remain an explicit approval step.
+## Animation and rendering ownership
+
+The original 960px portrait is prioritized with explicit dimensions. Space Grotesk is self-hosted through `next/font/local`, with its OFL license retained. Project screenshots are lazy-loaded WebP assets.
+
+- React Three Fiber/Drei provides the optional desktop constellation after pointer interaction. Touch devices, reduced-motion preferences and unsupported WebGL retain the static field. Its capped 28/65 points use a small pairwise connection pass.
+- GSAP/ScrollTrigger controls portfolio reveals; Lenis handles desktop portfolio scrolling. Workspaces keep native gestures. Effects clean up on route changes and suspend where appropriate.
+- Motion handles project filtering. Its larger feature bundle loads when the filter controls enter view or receive interaction. Initial cards remain server-rendered.
+- CSS handles small hover and entrance transitions. Reduced motion disables optional movement and starts particles paused. The regular pointer and native links remain usable.
+- The particle sandbox owns its Canvas loop, uses spatial hashing, caps DPR, adapts quality and stops recurring frames when paused, hidden or offscreen.
+
+No element has multiple animation engines controlling the same transform. Internal links disable automatic prefetch by default so visiting the portfolio does not download every station.
+
+## Engine contracts
+
+| Engine | Model and boundaries |
+| --- | --- |
+| Logic | Acyclic combinational graphs; seven gate types; up to 32 nodes, eight switches and 256 truth rows; 2–4 inputs for multi-input gates; rejects missing inputs and feedback |
+| Binary | BigInt arithmetic masked to 8/16/32 bits; distinct unsigned carry, subtraction borrow and signed overflow; signed interpretation uses two's complement |
+| Particles | Creative spring/wave model, 40–650 particles, bounded forces and nearby grid connections; no claim of fluid-solver accuracy |
+| Glass | One validated style source drives preview and CSS/variables/TSX; illustrative scene decorations are excluded from surface exports |
+| Network | Exact IPv4 arithmetic through 2^32, including `/0`, `/31` and `/32`; up to 24 topology nodes; longest-prefix static routes and simplified shortest-path fallback; educational packets only |
+| Motion | Up to 20 shapes and 40 keys per shape, 1–20 second timeline, linear keyframe interpolation; validated SVG/SMIL and TSX generation |
+
+User values are bounded and schema-validated. SVG accepts enumerated shapes and validated colors/numbers, with no arbitrary markup execution. `/31` follows point-to-point semantics; `/32` represents one host route. Network forwarding does not implement a full IP stack, ARP or VLANs.
+
+## Persistence and security
+
+Zustand owns dashboard favorites, recent stations and completed challenge IDs. Manual post-mount hydration avoids server/client mismatches. Each workspace owns its experiment schema and browser-storage adapter; `src/lib/saved-experiments.ts` validates the dashboard's saved-experiment detection.
+
+Stored content is validated with Zod before use. Storage failures leave the editors usable. Saves are local to the origin, browser and device; they are not synchronized or backed up. No sensitive information or API keys belong in localStorage.
+
+This edition requires no environment-variable setup or secret-bearing services. Optional tooling accepts `PLAYWRIGHT_CHANNEL`, preview `PORT` and Lighthouse `CHROME_PATH`. A configured contact form, authentication or cross-device saves would require a real service. Add data-access adapters and server-side validation when such a feature exists; private credentials must remain server-side on a suitable host. GitHub Pages cannot execute those services.
+
+## Maintenance
+
+Update shared contact/project data in `src/config/`, the hero and education narrative in their portfolio components, assets in `public/` and tests alongside the affected feature. The README lists exact edit locations. A new station needs a typed registry entry, a feature module and engine, a dynamic workspace import, and meaningful engine/interaction tests. `generateStaticParams` creates registered station routes during export.
+
+Generated `next-env.d.ts`, `.next/`, `out/`, test reports and caches are ignored. Run the README's validation commands to reproduce them. The old HTML/CSS/JS app is recoverable from the [archived Git snapshot](https://github.com/ShashenNethmika/portfolio-website/tree/cd19a41/legacy); it is no longer duplicated in the current source tree.

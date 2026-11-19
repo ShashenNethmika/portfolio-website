@@ -18,11 +18,9 @@ summary { cursor:pointer; }
 dialog::backdrop { background:rgb(2 6 14 / .85); backdrop-filter:blur(8px); }
 .grid-field { background-image:linear-gradient(#78e3e507 1px,transparent 1px),linear-gradient(90deg,#78e3e507 1px,transparent 1px); background-size:60px 60px; }
 .dot-field { background-image:radial-gradient(#66819b40 1px,transparent 1px); background-size:22px 22px; }
-.text-outline { -webkit-text-stroke:1px #5f788c; color:transparent; }
 .panel { border:1px solid var(--line); border-radius:1rem; background:#101925; }
 .lab-button { border:1px solid #344559; border-radius:.5rem; background:#152231; padding:.6rem 1rem; font-size:.875rem; transition:background .2s; }
 .lab-button:hover { background:#22364a; }
-.lab-input { width:100%; border:1px solid #344559; border-radius:.5rem; background:#0b1420; padding:.6rem .8rem; color:#edf3f6; }
 .station-preview svg { transition:transform .6s ease; transform-origin:center; }
 @media (prefers-reduced-motion:no-preference) { .group:hover .station-preview svg,.group:focus-within .station-preview svg { transform:scale(1.055); } .group:hover .station-preview path[stroke-dasharray],.group:focus-within .station-preview path[stroke-dasharray] { animation:signal-flow 1.5s linear infinite; } }
 @keyframes signal-flow { to { stroke-dashoffset:-36; } }

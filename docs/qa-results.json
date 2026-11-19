@@ -16,9 +16,7 @@
       "WCAG 2.1 A/AA",
       "WCAG 2.2 AA"
     ],
-    "consoleErrors": 0,
-    "navigationRegressionPassed": 6,
-    "galleryMotionRegressionPassed": 4
+    "consoleErrors": 0
   },
   "typecheck": "passed: next typegen and tsc --noEmit",
   "lint": "passed: zero warnings",
@@ -31,136 +29,97 @@
     "originalPngBytes": 1739652
   },
   "performance": {
-    "method": "Headless Edge Lighthouse simulated mobile, median of 3 isolated runs; one desktop run. Local static preview, not field data.",
-    "mobileMedian": 90,
-    "mobileRuns": [
-      {
-        "run": 1,
-        "performance": 90,
-        "lcp": "1.3 s",
-        "tbt": "400 ms",
-        "cls": "0"
-      },
-      {
-        "run": 2,
-        "performance": 80,
-        "lcp": "1.3 s",
-        "tbt": "810 ms",
-        "cls": "0"
-      },
-      {
-        "run": 3,
-        "performance": 91,
-        "lcp": "1.2 s",
-        "tbt": "320 ms",
-        "cls": "0"
-      }
-    ],
+    "measuredCommit": "6dbbd80bf402bf4c565913c264879cca7fe9cb0f",
+    "method": "Three sequential isolated Lighthouse runs per device preset against deployed GitHub Pages, simulated throttling in headless Edge. Median performance is reported; not field Core Web Vitals.",
     "desktop": {
-      "performance": 93,
-      "accessibility": 100,
-      "best-practices": 100,
-      "seo": 100
+      "median": 91,
+      "runs": [
+        {
+          "scores": {
+            "performance": 91,
+            "accessibility": 100,
+            "best-practices": 100,
+            "seo": 100,
+            "agentic-browsing": 100
+          },
+          "lcp": "0.8 s",
+          "tbt": "100 ms",
+          "cls": "0",
+          "fetchTime": "2026-11-19T09:48:28.095Z"
+        },
+        {
+          "scores": {
+            "performance": 93,
+            "accessibility": 100,
+            "best-practices": 100,
+            "seo": 100,
+            "agentic-browsing": 100
+          },
+          "lcp": "0.5 s",
+          "tbt": "10 ms",
+          "cls": "0",
+          "fetchTime": "2026-11-19T09:49:27.249Z"
+        },
+        {
+          "scores": {
+            "performance": 73,
+            "accessibility": 100,
+            "best-practices": 100,
+            "seo": 100,
+            "agentic-browsing": 100
+          },
+          "lcp": "1.0 s",
+          "tbt": "460 ms",
+          "cls": "0.001",
+          "fetchTime": "2026-11-19T09:50:28.617Z"
+        }
+      ]
     },
-    "mobileOtherScores": {
-      "accessibility": 100,
-      "bestPractices": 100,
-      "seo": 100
+    "mobile": {
+      "median": 84,
+      "runs": [
+        {
+          "scores": {
+            "performance": 67,
+            "accessibility": 100,
+            "best-practices": 100,
+            "seo": 100,
+            "agentic-browsing": 100
+          },
+          "lcp": "1.7 s",
+          "tbt": "2,830 ms",
+          "cls": "0",
+          "fetchTime": "2026-11-19T09:48:01.438Z"
+        },
+        {
+          "scores": {
+            "performance": 85,
+            "accessibility": 100,
+            "best-practices": 100,
+            "seo": 100,
+            "agentic-browsing": 100
+          },
+          "lcp": "1.5 s",
+          "tbt": "460 ms",
+          "cls": "0",
+          "fetchTime": "2026-11-19T09:48:59.352Z"
+        },
+        {
+          "scores": {
+            "performance": 84,
+            "accessibility": 100,
+            "best-practices": 100,
+            "seo": 100,
+            "agentic-browsing": 100
+          },
+          "lcp": "1.9 s",
+          "tbt": "320 ms",
+          "cls": "0",
+          "fetchTime": "2026-11-19T09:49:57.175Z"
+        }
+      ]
     },
-    "production": {
-      "commit": "6dbbd80bf402bf4c565913c264879cca7fe9cb0f",
-      "method": "Three sequential isolated Lighthouse runs per device preset against deployed GitHub Pages, simulated throttling in headless Edge. Median performance is reported; not field Core Web Vitals.",
-      "mobile": {
-        "median": 84,
-        "runs": [
-          {
-            "scores": {
-              "performance": 67,
-              "accessibility": 100,
-              "best-practices": 100,
-              "seo": 100,
-              "agentic-browsing": 100
-            },
-            "lcp": "1.7 s",
-            "tbt": "2,830 ms",
-            "cls": "0",
-            "fetchTime": "2026-11-19T09:48:01.438Z"
-          },
-          {
-            "scores": {
-              "performance": 85,
-              "accessibility": 100,
-              "best-practices": 100,
-              "seo": 100,
-              "agentic-browsing": 100
-            },
-            "lcp": "1.5 s",
-            "tbt": "460 ms",
-            "cls": "0",
-            "fetchTime": "2026-11-19T09:48:59.352Z"
-          },
-          {
-            "scores": {
-              "performance": 84,
-              "accessibility": 100,
-              "best-practices": 100,
-              "seo": 100,
-              "agentic-browsing": 100
-            },
-            "lcp": "1.9 s",
-            "tbt": "320 ms",
-            "cls": "0",
-            "fetchTime": "2026-11-19T09:49:57.175Z"
-          }
-        ]
-      },
-      "desktop": {
-        "median": 91,
-        "runs": [
-          {
-            "scores": {
-              "performance": 91,
-              "accessibility": 100,
-              "best-practices": 100,
-              "seo": 100,
-              "agentic-browsing": 100
-            },
-            "lcp": "0.8 s",
-            "tbt": "100 ms",
-            "cls": "0",
-            "fetchTime": "2026-11-19T09:48:28.095Z"
-          },
-          {
-            "scores": {
-              "performance": 93,
-              "accessibility": 100,
-              "best-practices": 100,
-              "seo": 100,
-              "agentic-browsing": 100
-            },
-            "lcp": "0.5 s",
-            "tbt": "10 ms",
-            "cls": "0",
-            "fetchTime": "2026-11-19T09:49:27.249Z"
-          },
-          {
-            "scores": {
-              "performance": 73,
-              "accessibility": 100,
-              "best-practices": 100,
-              "seo": 100,
-              "agentic-browsing": 100
-            },
-            "lcp": "1.0 s",
-            "tbt": "460 ms",
-            "cls": "0.001",
-            "fetchTime": "2026-11-19T09:50:28.617Z"
-          }
-        ]
-      },
-      "remainingTarget": "The 90+ mobile performance target has not been reached consistently. Main-thread blocking remains variable."
-    },
-    "localMeasurementScope": "Local measurements above preceded the final gallery feature deferral; current release measurements are production below."
+    "remainingTarget": "The 90+ mobile performance target has not been reached consistently. Main-thread blocking remains variable."
   },
   "deployment": {
     "commit": "6dbbd80bf402bf4c565913c264879cca7fe9cb0f",
@@ -248,5 +207,32 @@
     "checkedAt": "2026-11-19T09:47:40.626Z",
     "ciBrowserTestsPassed": 62,
     "ciUnitTestsPassed": 31
+  },
+  "cleanup": {
+    "date": "2026-11-19",
+    "baseCommit": "cd19a41",
+    "archivedSource": "https://github.com/ShashenNethmika/portfolio-website/tree/cd19a41/legacy",
+    "publicAssetPreservation": "Portrait, branding, font and OFL license hash-matched the original archive before removal.",
+    "removed": [
+      "legacy/",
+      "docs/AUDIT.md (consolidated)",
+      "docs/SOURCE_INVENTORY.md (consolidated)",
+      "src/components/ui/lab-controls.tsx",
+      "unused downloadText export",
+      "unused .text-outline and .lab-input styles",
+      ".env.example",
+      "obsolete audit downloads and temporary artifacts"
+    ],
+    "generatedTypeFile": "next-env.d.ts untracked, ignored and successfully regenerated",
+    "documentationLinksChecked": 14,
+    "projectManifestEntriesChecked": 5,
+    "localValidation": {
+      "typecheck": "passed",
+      "lint": "passed",
+      "unitTests": 31,
+      "productionBuild": "passed",
+      "dependencyAudit": "no known vulnerabilities"
+    },
+    "performanceRemeasured": false
   }
 }
