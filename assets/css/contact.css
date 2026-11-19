@@ -1,0 +1,65 @@
+/* ===================================================================
+   CONTACT CTA CSS — Contact Banner / Call to Action on Home
+   =================================================================== */
+
+.contact {
+  padding: 140px 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.contact__inner {
+  position: relative;
+  border-radius: 32px;
+  border: 1px solid rgba(102, 227, 245, 0.3);
+  background: radial-gradient(ellipse at 80% 0%, #16384f 0%, var(--surface) 65%);
+  padding: clamp(48px, 8vw, 96px);
+  overflow: hidden;
+  box-shadow: 0 30px 80px -20px rgba(0, 0, 0, 0.7);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  z-index: 1;
+}
+
+.contact__bg-text {
+  position: absolute;
+  right: -20px;
+  bottom: -40px;
+  font-size: clamp(6rem, 18vw, 16rem);
+  font-weight: 900;
+  color: rgba(255, 255, 255, 0.02);
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+  z-index: -1;
+  font-family: var(--font-display);
+}
+
+.contact__label {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 1.25rem;
+}
+
+.contact__title {
+  font-size: clamp(2.8rem, 6vw, 4.5rem);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+  margin-bottom: 1.25rem;
+}
+
+.contact__desc {
+  font-size: clamp(1rem, 1.8vw, 1.25rem);
+  color: var(--muted);
+  max-width: 48ch;
+  line-height: 1.6;
+  margin-bottom: 2.5rem;
+}

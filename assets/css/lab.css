@@ -1,0 +1,403 @@
+/* ===================================================================
+   SIGNAL LAB & THE LAB TEASER CSS
+   Logic Circuits, Interactive Gates & Homepage Teaser Showcase
+   =================================================================== */
+
+/* ═══════════════════════════════════════════
+   HOMEPAGE LAB TEASER SHOWCASE
+   ════════════════════════════════════════════ */
+.lab-teaser {
+  padding: 120px 0;
+  position: relative;
+  background: radial-gradient(ellipse at 50% 30%, #0d2136 0%, var(--bg) 70%);
+  border-top: 1px solid var(--line);
+  overflow: hidden;
+}
+
+.lab-teaser::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(rgba(102, 227, 245, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(102, 227, 245, 0.03) 1px, transparent 1px);
+  background-size: 32px 32px;
+  pointer-events: none;
+}
+
+.lab-teaser__inner {
+  position: relative;
+  z-index: 1;
+  background: rgba(16, 24, 39, 0.85);
+  border: 1px solid rgba(102, 227, 245, 0.25);
+  border-radius: 32px;
+  padding: clamp(36px, 6vw, 72px);
+  box-shadow: 0 30px 80px -20px rgba(0, 0, 0, 0.8);
+}
+
+.lab-teaser__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  margin: 48px 0 44px;
+}
+
+@media (max-width: 1024px) {
+  .lab-teaser__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .lab-teaser__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.lab-teaser__card {
+  background: var(--surface-raised);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 28px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: transform var(--transition-fast), border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.lab-teaser__card:hover {
+  transform: translateY(-6px);
+  border-color: var(--accent);
+  box-shadow: 0 16px 36px -10px rgba(0, 0, 0, 0.6), 0 0 20px var(--accent-dim);
+}
+
+.lab-teaser__card-icon {
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.lab-teaser__card-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text);
+}
+
+.lab-teaser__card-desc {
+  font-size: 0.88rem;
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+.lab-teaser__card-tag {
+  margin-top: auto;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: 0.06em;
+}
+
+.lab-teaser__action {
+  display: flex;
+  justify-content: center;
+}
+
+/* ═══════════════════════════════════════════
+   CIRCUITS ENGINE (STANDALONE / SHARED)
+   ════════════════════════════════════════════ */
+.lab {
+  padding: 120px 0;
+  background: radial-gradient(ellipse at 50% 20%, #0d1e2e 0%, var(--bg) 70%);
+  position: relative;
+  border-top: 1px solid var(--line);
+}
+
+.lab__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 32px;
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 900px) {
+  .lab__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.lab__circuit {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  transition: border-color var(--transition-normal), box-shadow var(--transition-normal);
+  position: relative;
+  overflow: hidden;
+}
+
+.lab__circuit:hover {
+  border-color: rgba(102, 227, 245, 0.35);
+  box-shadow: 0 16px 36px -10px rgba(0, 0, 0, 0.6);
+}
+
+.lab__circuit-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 16px;
+}
+
+.lab__circuit-title {
+  font-family: var(--font-mono);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: 0.05em;
+}
+
+.lab__gate-select {
+  background: var(--surface-raised);
+  color: var(--accent);
+  border: 1px solid rgba(102, 227, 245, 0.4);
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  outline: none;
+  transition: all var(--transition-fast);
+}
+
+.lab__gate-select:hover,
+.lab__gate-select:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 10px var(--accent-dim);
+}
+
+/* ═══════════════════════════════════════════
+   CIRCUIT BODY & WIRES
+   ════════════════════════════════════════════ */
+.lab__circuit-body {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 20px;
+  background: rgba(11, 18, 29, 0.6);
+  border-radius: 12px;
+  border: 1px dashed var(--line);
+  padding: 24px 20px;
+}
+
+.lab__inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.lab__input-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.lab__label {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--muted);
+  width: 14px;
+}
+
+.lab__toggle {
+  position: relative;
+  width: 48px;
+  height: 26px;
+  background: var(--surface-raised);
+  border: 1px solid var(--line-light);
+  border-radius: 14px;
+  padding: 2px;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.lab__toggle.is-active {
+  background: rgba(102, 227, 245, 0.25);
+  border-color: var(--accent);
+  box-shadow: 0 0 12px var(--accent-dim);
+}
+
+.lab__toggle-knob {
+  display: block;
+  width: 20px;
+  height: 20px;
+  background: var(--muted);
+  border-radius: 50%;
+  transition: transform var(--transition-fast), background-color var(--transition-fast);
+}
+
+.lab__toggle.is-active .lab__toggle-knob {
+  transform: translateX(22px);
+  background: var(--accent);
+  box-shadow: 0 0 8px var(--accent);
+}
+
+.lab__input-val {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  font-weight: 700;
+  width: 16px;
+  color: var(--muted);
+}
+
+.lab__input-val.is-active {
+  color: var(--accent);
+  text-shadow: 0 0 8px var(--accent);
+}
+
+/* Gate Visualisation & Wires */
+.lab__gate-visual {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 90px;
+}
+
+.lab__gate-symbol {
+  width: 72px;
+  height: 52px;
+  background: var(--surface);
+  border: 2px solid var(--line-light);
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--text);
+  z-index: 2;
+  transition: all var(--transition-normal);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+}
+
+.lab__gate-symbol.is-active {
+  border-color: var(--accent);
+  color: var(--accent);
+  box-shadow: 0 0 20px var(--accent-dim);
+  background: rgba(102, 227, 245, 0.08);
+}
+
+.lab__wire {
+  position: absolute;
+  height: 2px;
+  background: var(--line);
+  transition: all var(--transition-fast);
+}
+
+.lab__wire--a {
+  left: 0;
+  top: 28px;
+  width: 50%;
+}
+
+.lab__wire--b {
+  left: 0;
+  bottom: 28px;
+  width: 50%;
+}
+
+.lab__wire--out {
+  right: 0;
+  top: 50%;
+  width: 50%;
+}
+
+.lab__wire.is-active {
+  background: var(--accent);
+  box-shadow: 0 0 8px var(--accent);
+}
+
+/* Output Display */
+.lab__output {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.lab__output-val {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: var(--surface);
+  border: 2px solid var(--line);
+  display: grid;
+  place-items: center;
+  font-family: var(--font-mono);
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--muted);
+  transition: all var(--transition-fast);
+}
+
+.lab__output-val.is-active {
+  border-color: var(--accent);
+  color: #06151e;
+  background: var(--accent);
+  box-shadow: 0 0 20px var(--accent-glow);
+}
+
+/* ═══════════════════════════════════════════
+   TRUTH TABLE
+   ════════════════════════════════════════════ */
+.lab__truth-table {
+  border-top: 1px solid var(--line);
+  padding-top: 16px;
+}
+
+.lab__truth-table table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  text-align: center;
+}
+
+.lab__truth-table th {
+  padding: 6px 12px;
+  color: var(--muted);
+  font-weight: 600;
+  border-bottom: 1px solid var(--line);
+}
+
+.lab__truth-table td {
+  padding: 6px 12px;
+  color: var(--muted-dim);
+  transition: all var(--transition-fast);
+}
+
+.lab__truth-table tr.is-active td {
+  color: var(--accent);
+  font-weight: 700;
+  background: rgba(102, 227, 245, 0.08);
+}
+
+@media (max-width: 480px) {
+  .lab__circuit-body {
+    padding: 16px 12px;
+    gap: 12px;
+  }
+  .lab__gate-symbol {
+    width: 60px;
+    height: 44px;
+    font-size: 0.85rem;
+  }
+}
+
