@@ -41,10 +41,12 @@ test("logic builder calculates and connects actual multi-gate circuits", async (
   await page.getByRole("button", { name: "Load circuit", exact: true }).click();
   await expect(page.getByRole("button", { name: "Move NOT 1", exact: true })).toBeVisible();
   await page.getByRole("button", { name: "Move NOT 1", exact: true }).focus();
-  const before = await page.getByRole("button", { name: "Move NOT 1", exact: true }).boundingBox();
+  const component = page.getByRole("button", { name: "Move NOT 1", exact: true }).locator('..');
+  // A focused canvas can scroll while a component moves. Measure coordinates
+  // in the circuit, and await React's commit, rather than viewport coordinates.
+  const before = await component.evaluate(element=>parseFloat((element as HTMLElement).style.left));
   await page.keyboard.press("ArrowRight");
-  const after = await page.getByRole("button", { name: "Move NOT 1", exact: true }).boundingBox();
-  expect(after!.x - before!.x).toBe(10);
+  await expect.poll(async () => (await component.evaluate(element => parseFloat((element as HTMLElement).style.left))) - before).toBe(10);
 });
 
 test("binary explorer handles 32-bit unsigned, signed two's complement, and saved registers", async ({ page }) => {
