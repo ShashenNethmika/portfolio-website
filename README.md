@@ -1,119 +1,70 @@
-# Shashen Nethmika — Ultra-Interactive Portfolio Web App
+# Shashen Nethmika — Portfolio & The Lab
 
-An award-winning caliber, highly immersive, interactive developer portfolio built with modern web technologies: **Three.js, GSAP 3 (ScrollTrigger & ScrollToPlugin), Lenis Smooth Scroll**, and custom CSS3 visual artistry.
+A statically exported Next.js portfolio with six interactive engineering workspaces. Original profile, projects, portrait, education and contact destinations are preserved. No account, backend or secret is required.
 
----
+## Local development
 
-## 🌟 Key Interactive Experiences
+Requires Node.js 24 LTS and pnpm 11.25.0. All versions are pinned in `package.json` and `pnpm-lock.yaml`.
 
-### 1. Main Portfolio SPA (`index.html`)
-- **Cyberpunk 3D Particle Constellation (Three.js)**: Fluid 3D particle network reacting to cursor coordinates and forming dynamic glowing line connections.
-- **Hardware-Accelerated Custom Cursor**: Lerped magnetic cursor ring with physics scaling on interactive elements.
-- **3D Tilt & Specular Light Reflection**: Hero portrait card rotates in 3D perspective with moving specular glint highlight.
-- **Lenis Smooth Scroll Engine**: Silky smooth scrolling synchronized with GSAP ScrollTrigger.
-- **Selected Projects & CSS Art**: Category filters (`All`, `Web apps`, `Creative UI`) with pure CSS artwork (Vesak lantern, Sinhala & Tamil New Year sun/pot, Study Buddy dial, Weather Dashboard, FilmPotha 3D covers, and AI Cinema monitor).
-- **The Lab Teaser Section**: Elegant homepage showcase introducing the 4 interactive playground stations with a direct launch CTA.
-- **Animated Skill Progress Bars**: Interactive scroll-triggered skill meters in the About section.
-
----
-
-### 2. The Lab — Creative Playground (`pages/lab.html`)
-A standalone interactive playground featuring 4 distinct hands-on engineering stations:
-
-1. **⚡ Station 1: Logic Circuit Studio**
-   - 4 boolean logic circuit challenges (Fundamental Gate, Relay Switch, Parity Checker, Universal Gate).
-   - Interactive inputs (A & B) with illuminated signal wires (`.lab__wire.is-active`) carrying live electric current.
-   - Dynamic truth tables highlighting the active input/output row.
-   - Realistic relay click audio synthesizer (using the Web Audio API with an on/off toggle!).
-
-2. **🎛️ Station 2: 8-Bit Binary Matrix & Byte Explorer**
-   - 8 individual bit switches (Bits 7 down to 0) with glowing cyan LED diodes.
-   - Real-time conversion across 4 digital representations:
-     - **Binary String** (`00101011`)
-     - **Decimal (Base 10)** (`43`)
-     - **Hexadecimal** (`0x2B`)
-     - **ASCII Character** (`'+'`)
-   - Bitwise operations toolbar: Invert (`NOT ~`), Shift Left (`<< 1`), Shift Right (`>> 1`), Clear (`0`), Set All (`255`), and Random Byte generator.
-
-3. **🌊 Station 3: Kinetic Wave & Gravity Particle Sandbox**
-   - Physics-driven fluid canvas running at 60 FPS.
-   - 120 dynamic nodes floating in harmonic wave frequency.
-   - Mouse gravitation: cursor exerts gravitational attraction/repulsion.
-   - Click shockwaves: clicking anywhere unleashes kinetic energy ripples that scatter particles.
-   - 4 neon color themes: Cyberpunk Cyan, Electric Purple, Sunset Amber, Matrix Green.
-
-4. **💎 Station 4: Cyberpunk Glassmorphism Studio**
-   - Real-time frosted glass UI generator with interactive sliders:
-     - Backdrop Blur (`0px – 40px`)
-     - Surface Opacity (`5% – 85%`)
-     - Border Glow Radius (`0px – 60px`)
-     - Accent Hue (`0° – 360°`)
-   - Live refracted preview card reflecting blurred gradient light spheres.
-   - 1-click **"Copy CSS Code"** button with instant clipboard confirmation.
-
----
-
-### 3. Contact & Social Experience (`pages/contact.html`)
-- 1-click "Copy email" button with animated tooltip feedback (`Copied! ✓`).
-- Direct WhatsApp integration.
-- 12 interactive social platform cards with hover elevation and accent border glows.
-
----
-
-## 📁 File & Folder Structure
-
-```
-portfolio-website/
-├── index.html                    # Main immersive portfolio landing page
-├── README.md                     # Documentation & deploy instructions
-├── pages/
-│   ├── lab.html                  # The Lab & Playground (4 interactive stations)
-│   └── contact.html              # Dedicated contact & social platforms page
-└── assets/
-    ├── css/
-    │   ├── main.css              # Core tokens, typography, header, footer
-    │   ├── cursor.css            # Custom magnetic cursor styles
-    │   ├── hero.css              # Hero section, 3D canvas, tilt card
-    │   ├── projects.css          # Projects grid, filters, and CSS art
-    │   ├── lab.css               # Shared circuit engine & homepage teaser
-    │   ├── lab-page.css          # Lab playground layout, binary matrix & studio
-    │   ├── about.css             # Education timeline & animated skill bars
-    │   ├── contact.css           # Contact CTA section styling
-    │   ├── animations.css        # Keyframes, scroll reveals & micro-interactions
-    │   └── contact-page.css      # Contact page grid & 12 social cards
-    ├── js/
-    │   ├── app.js                # Core homepage engine (Three.js, GSAP, Lenis)
-    │   ├── lab.js                # The Lab engine (circuits, binary matrix, wave, glass)
-    │   └── contact.js            # Contact page interactive script
-    ├── fonts/
-    │   ├── space-grotesk.woff    # Self-hosted Space Grotesk font
-    │   └── OFL-Space-Grotesk.txt # Font license
-    └── images/
-        ├── profile.webp          # Optimized profile portrait
-        └── mark.png              # Favicon / brand mark
+```sh
+pnpm install --frozen-lockfile
+pnpm dev
 ```
 
----
+Open `http://localhost:3000/portfolio-website/`. The repository base path is enabled during development too.
 
-## 🚀 How to Run Locally
+## Validate the production export
 
-You can preview the website by double-clicking `index.html` or using any local HTTP server:
+```sh
+pnpm typecheck
+pnpm lint
+pnpm test
+pnpm build
+pnpm preview
+```
 
-### Option 1: Double-click
-Simply double click `index.html` to open directly in Chrome, Edge, Firefox, or Safari.
+The last command serves **the actual exported files** at `http://127.0.0.1:4173/portfolio-website/`, including direct route requests and old HTML entry points. `next start` is not used for `output: 'export'`.
 
-### Option 2: VS Code Live Server
-Right-click `index.html` and click **"Open with Live Server"**.
+In another terminal:
 
----
+```sh
+# Windows uses the installed Microsoft Edge. Linux CI uses Chromium.
+pnpm exec playwright install chromium
+pnpm test:e2e
+pnpm audit --prod
+```
 
-## 🌐 Deploying to GitHub Pages
+Set `PLAYWRIGHT_CHANNEL=chrome` or `msedge` to select another installed Chromium-family browser. See the migration report for actual executed results; test scripts alone do not establish verification.
 
-1. Commit and push the contents of this folder to your GitHub repository:
-   ```bash
-   git add .
-   git commit -m "Add dedicated The Lab playground with 4 interactive stations"
-   git push origin main
-   ```
-2. Your site will update automatically on:
-   `https://shashennethmika.github.io/portfolio-website/`
+## Workspaces
+
+| Route | Experiment |
+| --- | --- |
+| `/lab/logic-circuit/` | Connected combinational circuits, seven gate types, truth tables and challenges |
+| `/lab/binary-explorer/` | 8/16/32-bit signed and unsigned BigInt arithmetic and number systems |
+| `/lab/particle-sandbox/` | Adaptive particle physics, spatial hashing, gravity and waves |
+| `/lab/glass-studio/` | Surface generator with exact CSS, variables and TSX exports |
+| `/lab/network-studio/` | IPv4 subnet math, topology editor, educational packet forwarding |
+| `/lab/motion-studio/` | SVG shapes, transform keyframes, timeline and safe SVG/TSX exports |
+
+Saved work stays in this browser's storage. It is not synchronized or backed up. Zod validates stored models. The network workspace is a teaching simulation and does not generate real network traffic. Circuit feedback/sequential logic, real network stacks, cloud collaboration and authentication are outside this static edition.
+
+## GitHub Pages deployment
+
+Production is `https://shashennethmika.github.io/portfolio-website/`. `next.config.ts` sets static export, `/portfolio-website` base path, trailing slashes, and static-compatible images. Exported files live in ignored `out/`.
+
+1. Review and approve the migration branch before merging. Nothing in local development publishes the website.
+2. In the repository's Settings → Pages, choose **GitHub Actions** as the build source. The audited production repository previously served the root of `main` directly.
+3. After approval, merge the migration into `main`. `.github/workflows/pages.yml` installs the locked packages, checks types/lint/unit tests, builds, runs desktop/mobile E2E, audits production dependencies, uploads `out/`, and deploys the artifact only after validation passes.
+4. Check every page, all six workspace direct URLs, legacy `/index.html`, `/pages/contact.html`, `/pages/lab.html`, portrait, sitemap and robots on the deployed URL. Run a production Lighthouse audit and check browser errors. Local export tests do not replace this post-deployment check.
+
+A future custom domain requires revisiting `basePath`, asset helper, canonical URLs and sitemap. Server actions, API routes, private keys and database connections cannot run on GitHub Pages. A real contact form or cross-device saves would require a separately configured service or server-capable hosting; the current contact UI uses the preserved email and WhatsApp.
+
+## Documentation
+
+- [Audit and preservation record](docs/AUDIT.md)
+- [Architecture and extension decisions](docs/ARCHITECTURE.md)
+- [Migration report and QA results](docs/MIGRATION_REPORT.md)
+- [Genuine project image provenance](docs/project-image-provenance.md)
+
+The previous manually maintained site is preserved in the local Git snapshot and, after validation, under `legacy/`. It is not part of the exported application. Original font licensing is retained under `public/fonts/`; the repository's original MIT license is retained.

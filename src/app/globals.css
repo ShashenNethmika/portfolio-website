@@ -1,0 +1,26 @@
+@import "tailwindcss";
+
+:root { color-scheme: dark; --background:#080d16; --surface:#101925; --foreground:#edf3f6; --muted:#9babbc; --accent:#78e3e5; --line:#263344; }
+@theme inline { --color-background:var(--background); --color-surface:var(--surface); --color-foreground:var(--foreground); --color-muted:var(--muted); --color-accent:var(--accent); --color-line:var(--line); --font-sans:var(--font-space),Arial,sans-serif; }
+* { box-sizing:border-box; }
+html { scroll-behavior:smooth; scroll-padding-top:7rem; }
+body { margin:0; background:var(--background); color:var(--foreground); font-family:var(--font-space),Arial,sans-serif; }
+::selection { background:#78e3e5; color:#080d16; }
+button,a,input,select,textarea { -webkit-tap-highlight-color:transparent; }
+button,a { touch-action:manipulation; }
+button { cursor:pointer; }
+button:disabled { opacity:.45; cursor:not-allowed; }
+:focus-visible { outline:2px solid var(--accent); outline-offset:5px; }
+input,select,textarea { accent-color:var(--accent); }
+input[type=range] { width:100%; }
+select { background-color:#142131; color:#edf3f6; padding:.6rem .8rem; border:1px solid var(--line); border-radius:.5rem; }
+summary { cursor:pointer; }
+dialog::backdrop { background:rgb(2 6 14 / .85); backdrop-filter:blur(8px); }
+.grid-field { background-image:linear-gradient(#78e3e507 1px,transparent 1px),linear-gradient(90deg,#78e3e507 1px,transparent 1px); background-size:60px 60px; }
+.dot-field { background-image:radial-gradient(#66819b40 1px,transparent 1px); background-size:22px 22px; }
+.text-outline { -webkit-text-stroke:1px #5f788c; color:transparent; }
+.panel { border:1px solid var(--line); border-radius:1rem; background:#101925; }
+.lab-button { border:1px solid #344559; border-radius:.5rem; background:#152231; padding:.6rem 1rem; font-size:.875rem; transition:background .2s; }
+.lab-button:hover { background:#22364a; }
+.lab-input { width:100%; border:1px solid #344559; border-radius:.5rem; background:#0b1420; padding:.6rem .8rem; color:#edf3f6; }
+@media(prefers-reduced-motion:reduce) { html {scroll-behavior:auto;} *,*::before,*::after { animation-duration:.01ms!important; animation-iteration-count:1!important; transition-duration:.01ms!important; } }

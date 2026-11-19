@@ -1,0 +1,19 @@
+'use client';
+import Link from 'next/link';
+import dynamic from 'next/dynamic';
+import { useEffect,useRef,useState } from 'react';
+import { Maximize, HelpCircle, LayoutGrid } from 'lucide-react';
+import { stations,type StationId } from '@/config/stations';
+import { useLabStore } from '@/stores/lab-store';
+const loading=()=> <div role="status" className="panel grid min-h-72 place-items-center text-muted">Preparing your workspace…</div>;
+const studios={
+'logic-circuit':dynamic(()=>import('@/features/logic-circuit/LogicStudio'),{loading,ssr:false}),
+'binary-explorer':dynamic(()=>import('@/features/binary-explorer/BinaryExplorer'),{loading,ssr:false}),
+'particle-sandbox':dynamic(()=>import('@/features/particle-sandbox/ParticleSandbox'),{loading,ssr:false}),
+'glass-studio':dynamic(()=>import('@/features/glass-studio/GlassStudio'),{loading,ssr:false}),
+'network-studio':dynamic(()=>import('@/features/network-studio/NetworkStudio'),{loading,ssr:false}),
+'motion-studio':dynamic(()=>import('@/features/motion-studio/MotionStudio'),{loading,ssr:false}),
+};
+export default function Workspace({id}:{id:StationId}){const station=stations.find(s=>s.id===id)!;const Studio=studios[id];const wrap=useRef<HTMLDivElement>(null);const [help,setHelp]=useState(false);const [status,setStatus]=useState('');
+useEffect(()=>{const store=useLabStore.getState();store.hydrate();store.visit(id);const complete=(event:Event)=>{const detail=(event as CustomEvent).detail;if(detail&&typeof detail.station==='string'&&typeof detail.id==='string')store.complete(`${detail.station}:${detail.id}`);};window.addEventListener('lab:challenge',complete);return()=>window.removeEventListener('lab:challenge',complete);},[id]);
+return <div ref={wrap} className="min-h-screen bg-background"><div className="mx-auto max-w-[1600px] px-4 py-8 sm:px-8 lg:px-12"><div className="mb-7 flex flex-wrap items-center justify-between gap-4"><Link href="/lab/" className="flex items-center gap-2 text-sm text-muted hover:text-accent"><LayoutGrid size={15}/>All experiments</Link><div className="flex gap-2"><button className="lab-button flex items-center gap-2" onClick={()=>setHelp(!help)} aria-expanded={help}><HelpCircle size={15}/>Workspace guide</button><button className="lab-button flex items-center gap-2" onClick={async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else await wrap.current?.requestFullscreen();}catch{setStatus('Fullscreen is unavailable in this browser.');}}}><Maximize size={15}/>Fullscreen</button></div></div><div className="mb-8 flex flex-wrap items-end justify-between gap-5"><div><p className="mb-3 font-mono text-xs uppercase tracking-[.18em]" style={{color:station.color}}>Station {station.number} / {station.category}</p><h1 className="text-3xl font-medium tracking-[-.04em] sm:text-4xl">{station.title}</h1><p className="mt-3 max-w-2xl text-sm leading-6 text-muted">{station.description}</p></div><span className="rounded-full border border-line px-3 py-1.5 text-xs text-muted">{station.difficulty}</span></div>{help&&<aside className="mb-6 rounded-xl border border-accent/25 bg-accent/5 p-5 text-sm leading-7 text-slate-300"><h2 className="mb-2 text-lg text-white">Your workspace</h2>Use the controls to change the experiment and watch the results update. Each station includes specific instructions and a reset control. Save tools store experiments in this browser only. Drag controls support touch; builders also provide keyboard controls. Use Escape to leave fullscreen. Reduced-motion settings are respected.</aside>}{status&&<p role="status" className="mb-5 text-sm text-amber-200">{status}</p>}<Studio/><nav aria-label="Other stations" className="mt-12 flex flex-wrap gap-2 border-t border-line pt-7">{stations.filter(s=>s.id!==id).map(s=><Link key={s.id} href={`/lab/${s.id}/`} className="rounded-lg border border-line px-3 py-2 text-sm text-muted hover:border-accent/50 hover:text-accent">{s.short}</Link>)}</nav></div></div>;}

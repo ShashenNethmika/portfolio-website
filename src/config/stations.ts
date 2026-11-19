@@ -1,0 +1,9 @@
+export const stations = [
+  {id:'logic-circuit',number:'01',title:'Logic Circuit Studio',short:'Logic circuits',category:'Digital systems',difficulty:'Intermediate',description:'Build connected circuits. Follow every signal. Make an idea compute.',color:'#70e0e6',icon:'circuit',tags:['7 gates','Circuit builder','Truth tables']},
+  {id:'binary-explorer',number:'02',title:'Binary & Digital Systems',short:'Binary explorer',category:'Digital systems',difficulty:'Beginner',description:'Think in bits. Explore number systems, signed integers, and bitwise operations.',color:'#adc1ff',icon:'binary',tags:['8 · 16 · 32 bit','Two’s complement','Bitwise']},
+  {id:'particle-sandbox',number:'03',title:'Particle & Wave Sandbox',short:'Particle physics',category:'Simulation',difficulty:'Exploratory',description:'Shape a living particle field with gravity, waves, and a little curiosity.',color:'#b7a5ef',icon:'wave',tags:['Physics','Shockwaves','Adaptive canvas']},
+  {id:'glass-studio',number:'04',title:'Glass & UI Generator',short:'Glass studio',category:'Creative coding',difficulty:'Beginner',description:'Find the perfect surface. Tune, preview, and export production-ready styles.',color:'#f3bc91',icon:'glass',tags:['Live preview','CSS & TSX','Presets']},
+  {id:'network-studio',number:'05',title:'Network & Data Flow',short:'Network studio',category:'Networking',difficulty:'Intermediate',description:'Connect a topology, calculate subnets, and watch a packet find its way.',color:'#9dd7b1',icon:'network',tags:['Topology builder','IPv4 / CIDR','Packet journey']},
+  {id:'motion-studio',number:'06',title:'Motion & SVG Studio',short:'Motion studio',category:'Creative coding',difficulty:'Exploratory',description:'Turn simple geometry into expressive motion. Create, animate, and export.',color:'#e5a8cd',icon:'motion',tags:['SVG shapes','Keyframes','Export']},
+] as const;
+export type StationId = (typeof stations)[number]['id'];

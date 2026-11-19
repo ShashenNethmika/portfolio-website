@@ -1,0 +1,2 @@
+import Link from 'next/link';
+export default function NotFound(){return <section className="mx-auto max-w-xl px-6 py-32"><p className="font-mono text-accent">404 / An unexplored path</p><h1 className="mt-6 text-4xl">This experiment doesn’t exist.</h1><p className="mt-5 leading-7 text-muted">Head back to the portfolio or explore an available station.</p><Link href="/lab/" className="mt-8 inline-block rounded-lg bg-accent px-6 py-3 text-background">Explore The Lab</Link></section>;}

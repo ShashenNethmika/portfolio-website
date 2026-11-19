@@ -1,0 +1,16 @@
+'use client';
+import { Canvas, useFrame } from '@react-three/fiber';
+import { Line } from '@react-three/drei';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import * as THREE from 'three';
+function Field(){
+  const group=useRef<THREE.Group>(null);const line=useRef<THREE.LineSegments>(null);
+  const mouse=useRef({x:0,y:0});
+  useEffect(()=>{const move=(e:PointerEvent)=>{mouse.current={x:e.clientX/innerWidth*2-1,y:1-e.clientY/innerHeight*2};};window.addEventListener('pointermove',move,{passive:true});return()=>window.removeEventListener('pointermove',move);},[]);
+  const [positions,connections]=useMemo(()=>{let seed=531;const rand=()=>{seed=(seed*16807)%2147483647;return seed/2147483647;};const count=innerWidth<768?28:65;const pos=new Float32Array(count*3);const lines=new Float32Array(count*12*3);for(let i=0;i<pos.length;i++)pos[i]=(rand()-.5)*(i%3===2?4:14);return [pos,lines];},[]);
+  useFrame(({clock})=>{if(!group.current||!line.current)return;group.current.rotation.y=mouse.current.x*.1+Math.sin(clock.elapsedTime*.09)*.12;group.current.rotation.x=mouse.current.y*.08;let n=0;const threshold=2.15+Math.sin(clock.elapsedTime*.5)*.3;for(let i=0;i<positions.length/3;i++)for(let j=i+1;j<positions.length/3;j++){if(n+6>=connections.length)break;const a=i*3,b=j*3;const d=Math.hypot(positions[a]-positions[b],positions[a+1]-positions[b+1],positions[a+2]-positions[b+2]);if(d<threshold){for(let k=0;k<3;k++)connections[n++]=positions[a+k];for(let k=0;k<3;k++)connections[n++]=positions[b+k];}}line.current.geometry.attributes.position.needsUpdate=true;line.current.geometry.setDrawRange(0,n/3);});
+  return <group ref={group}><points><bufferGeometry><bufferAttribute attach="attributes-position" args={[positions,3]}/></bufferGeometry><pointsMaterial color="#78e3e5" size={.035} transparent opacity={.5} sizeAttenuation/></points><lineSegments ref={line}><bufferGeometry><bufferAttribute attach="attributes-position" args={[connections,3]}/></bufferGeometry><lineBasicMaterial color="#78e3e5" transparent opacity={.08}/></lineSegments><Line points={[[-5,-3,0],[5,-3,0]]} color="#78e3e5" transparent opacity={.08} lineWidth={1}/></group>;
+}
+export default function Constellation(){const wrap=useRef<HTMLDivElement>(null);const [active,setActive]=useState(false);const [supported,setSupported]=useState(false);
+useEffect(()=>{try{const c=document.createElement('canvas');const gl=c.getContext('webgl2');if(!gl)return;gl.getExtension('WEBGL_lose_context')?.loseContext();setSupported(true);}catch{return;}const motion=matchMedia('(prefers-reduced-motion: reduce)');let visible=true;const update=()=>setActive(visible&&!document.hidden&&!motion.matches);const observer=new IntersectionObserver(([entry])=>{visible=entry.isIntersecting;update();});if(wrap.current)observer.observe(wrap.current);document.addEventListener('visibilitychange',update);motion.addEventListener('change',update);update();return()=>{observer.disconnect();document.removeEventListener('visibilitychange',update);motion.removeEventListener('change',update);};},[]);
+return <div ref={wrap} aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 opacity-70">{supported&&<Canvas dpr={[1,1.25]} frameloop={active?'always':'never'} camera={{position:[0,0,10],fov:55}} gl={{antialias:false,alpha:true,powerPreference:'low-power'}}><Field/></Canvas>}</div>;}
