@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
+import { m, LazyMotion, AnimatePresence, useReducedMotion } from 'motion/react';
 import { X, Code2 as Github, Play, Pause, RotateCcw, Globe } from 'lucide-react';
 import { projects, projectRepo, projectDemo, type Project } from '@/config/portfolio';
 import ProjectArt from './project-art';
@@ -37,17 +37,33 @@ export default function ProjectGrid({headingLevel=3}:{headingLevel?:2|3}){
   const dialog=useRef<HTMLDialogElement>(null);
   const [palette,setPalette]=useState('lilac');
   const reduced=useReducedMotion();
+  const filterBar=useRef<HTMLDivElement>(null);
+  const [animationLoader]=useState(()=>{
+    let activate=()=>{};
+    const requested=new Promise<void>(resolve=>{activate=resolve;});
+    return {activate,features:()=>requested.then(()=>import('./project-motion-features')).then(module=>module.default)};
+  });
+  useEffect(()=>{
+    if(reduced||!filterBar.current)return;
+    // Filtering owns this engine. Above-the-fold reading needs no layout engine.
+    const observer=new IntersectionObserver(entries=>{
+      if(entries.some(entry=>entry.isIntersecting)){animationLoader.activate();observer.disconnect();}
+    });
+    observer.observe(filterBar.current);
+    return()=>observer.disconnect();
+  },[animationLoader,reduced]);
+  function prepareAnimation(){if(!reduced)animationLoader.activate();}
   function open(p:Project){setSelected(p);setPalette('lilac');dialog.current?.showModal();}
   function close(){dialog.current?.close();setSelected(null);}
   const visible=projects.filter(p=>filter==='all'||p.category===filter);
   return <>
-    <div role="group" aria-label="Filter projects" className="mb-8 flex flex-wrap gap-2">
-      {([['all','All work'],['web','Web apps'],['creative','Creative UI']] as const).map(([v,l])=><button key={v} onClick={()=>setFilter(v)} aria-pressed={filter===v} className={`rounded-full border px-5 py-2 text-sm transition-colors ${filter===v?'border-accent/50 bg-accent/10 text-accent':'border-line text-muted hover:text-white'}`}>{l}</button>)}
+    <div ref={filterBar} role="group" aria-label="Filter projects" className="mb-8 flex flex-wrap gap-2">
+      {([['all','All work'],['web','Web apps'],['creative','Creative UI']] as const).map(([v,l])=><button key={v} onPointerEnter={prepareAnimation} onFocus={prepareAnimation} onClick={()=>{prepareAnimation();setFilter(v);}} aria-pressed={filter===v} className={`rounded-full border px-5 py-2 text-sm transition-colors ${filter===v?'border-accent/50 bg-accent/10 text-accent':'border-line text-muted hover:text-white'}`}>{l}</button>)}
     </div>
     <p role="status" className="sr-only">{visible.length} projects shown</p>
     <div className="grid gap-x-7 gap-y-10 md:grid-cols-2 lg:grid-cols-3">
-      <AnimatePresence mode="popLayout">
-        {visible.map(p=><motion.article key={p.slug} layout={!reduced} initial={{opacity:1,y:reduced?0:12}} animate={{opacity:1,y:0}} exit={{opacity:0}} transition={{duration:.25}} className="group min-w-0">
+      <LazyMotion features={animationLoader.features} strict><AnimatePresence mode="popLayout">
+        {visible.map(p=><m.article key={p.slug} layout={!reduced} initial={false} animate={{opacity:1,y:0}} exit={{opacity:0}} transition={{duration:.25}} className="group min-w-0">
           <button onClick={()=>open(p)} className="block w-full text-left">
             <div className="transition-transform duration-500 group-hover:-translate-y-1"><ProjectArt project={p}/></div>
             <div id={`project-type-${p.slug}`} className="mt-5 flex items-center gap-2 text-xs text-muted"><span className="h-px w-5" style={{background:p.color}}/>{p.type}</div>
@@ -59,8 +75,8 @@ export default function ProjectGrid({headingLevel=3}:{headingLevel?:2|3}){
             <a href={projectRepo(p)} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 text-sm text-slate-300 hover:text-accent"><Github size={15}/>{p.repo?'Repository':'GitHub profile'}</a>
             {projectDemo(p)&&<a href={projectDemo(p)!} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 text-sm text-accent"><Globe size={15}/>Live demo</a>}
           </div>
-        </motion.article>)}
-      </AnimatePresence>
+        </m.article>)}
+      </AnimatePresence></LazyMotion>
     </div>
     <dialog ref={dialog} aria-labelledby="project-dialog-title" onCancel={close} onClick={e=>{if(e.target===dialog.current)close();}} className="fixed inset-0 m-auto max-h-[90dvh] w-[min(92vw,720px)] overflow-auto rounded-2xl border border-line bg-[#101925] p-5 text-foreground sm:p-8">
       {selected&&<>

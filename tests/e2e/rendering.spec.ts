@@ -35,6 +35,13 @@ test("normal-motion hero lazily starts WebGL or keeps its accessible fallback", 
     await expect(page.locator("#hero canvas")).toHaveCount(0);
     await expect(page.getByRole("link", { name: "Explore The Lab", exact: true })).toBeVisible();
   }
+  // The deferred filter engine must also work with normal motion and touch.
+  await page.getByRole("button", { name: "Creative UI", exact: true }).click();
+  const projects = page.getByRole("button", { name: /(Vesak|Sinhala|Study|Weather|FilmPotha|Shashen)/ });
+  await expect(projects).toHaveCount(3);
+  await page.getByRole("button", { name: "All work", exact: true }).click();
+  await expect(projects).toHaveCount(6);
+  await expect(page.getByRole("button", { name: /Vesak Card Generator$/ })).toBeVisible();
 });
 
 test("particle frames advance only while visible and running", async ({ page }) => {
